@@ -1,0 +1,1 @@
+export const HOST_REALWORLD = 'https://conduit.productionready.io/api'
