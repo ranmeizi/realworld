@@ -4,12 +4,14 @@ import BuildConfig from './build/build.conf'
 
 export default ({ command, mode }) => {
   const config = BaseConfig
-  console.log('?')
+  console.log('?', command)
   if (command === 'serve') {
     const c = ServeConfig(config)
     console.log(c)
     return c
   } else {
-    return BuildConfig(config)
+    const c = BuildConfig(config)
+    console.log(c)
+    return c
   }
 }

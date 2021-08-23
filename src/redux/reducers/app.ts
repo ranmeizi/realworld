@@ -3,12 +3,16 @@ import * as TYPES from '../ACTION_TYPES'
 
 type ThemeState = {
     theme: 'light' | 'dark',
-    appTab: string
+    appTab: string,
+    hideTabbar: boolean,
+    hideHeader: boolean,
 }
 
 const initialState: ThemeState = {
     theme: 'light',
-    appTab: ''
+    appTab: '',
+    hideTabbar: false,
+    hideHeader: false,
 }
 
 export default function reducer(state: ThemeState = initialState, action: AnyAction) {

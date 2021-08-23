@@ -1,8 +1,8 @@
 import React, { Component, Suspense } from 'react'
-import { renderRoutes } from 'react-router-config'
-import { Link } from 'react-router-dom'
-import { TabBar } from 'antd-mobile';
 import './style.less'
+import TabBar from './components/Tabbar'
+import Header from './components/Header'
+import { renderRoutes } from 'react-router-config'
 
 export default class MobileLayout extends Component<any> {
     state = {
@@ -12,118 +12,16 @@ export default class MobileLayout extends Component<any> {
     render() {
         return (
             <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
-                <TabBar
-                    unselectedTintColor="#949494"
-                    tintColor="#33A3F4"
-                    barTintColor="white"
-                    hidden={this.state.hidden}
-                >
-                    <TabBar.Item
-                        title="Life"
-                        key="Life"
-                        icon={<div style={{
-                            width: '22px',
-                            height: '22px',
-                            background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
-                        }}
-                        />
+                <Header />
+                <div className='rvt-router-view'>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        {
+                            renderRoutes(this.props.route.childRoutes)
                         }
-                        selectedIcon={<div style={{
-                            width: '22px',
-                            height: '22px',
-                            background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
-                        }}
-                        />
-                        }
-                        selected={this.state.selectedTab === 'blueTab'}
-                        badge={1}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'blueTab',
-                            });
-                        }}
-                        data-seed="logId"
-                    />
-                    <TabBar.Item
-                        icon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        selectedIcon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        title="Koubei"
-                        key="Koubei"
-                        badge={'new'}
-                        selected={this.state.selectedTab === 'redTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'redTab',
-                            });
-                        }}
-                        data-seed="logId1"
-                    />
-                    <TabBar.Item
-                        icon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        selectedIcon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        title="Friend"
-                        key="Friend"
-                        dot
-                        selected={this.state.selectedTab === 'greenTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'greenTab',
-                            });
-                        }}
-                    />
-                    <TabBar.Item
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-                        title="My"
-                        key="my"
-                        selected={this.state.selectedTab === 'yellowTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'yellowTab',
-                            });
-                        }}
-                    />
-                </TabBar>
+                    </Suspense>
+                </div>
+                <TabBar />
             </div>
-            // <div>
-            //     我这是个布局组件啊
-            //     <Link to={'/article/home'}>文章</Link>｜<Link to={'/setting'}>设置</Link>
-            //     <div>
-            //         <Suspense fallback={<div>Loading...</div>}>
-            //             {
-            //                 renderRoutes(this.props.route.childRoutes)
-            //             }
-            //         </Suspense>
-            //     </div>
-            // </div>
         )
     }
 }

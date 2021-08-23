@@ -4,28 +4,29 @@ const NETWORK_ENV = process.env.NETWORK_ENV as Envs
 type Envs = 'DEVELOP' | 'TEST' | 'UAT' | 'RELEASE'
 
 // 服务地址列表
-type Servers =
-    'realWorldServer' |
-    'otherServer'
+type Servers = {
+    'realWorldServer': 'realworld 后台',
+    'testServer': '测试后台'
+}
 
-type ServerList = Record<Servers, string>
+type ServerList = Record<keyof Servers, string>
 
 const config: Record<Envs, ServerList> = {
     DEVELOP: {
         realWorldServer: 'https://conduit.productionready.io/api',
-        otherServer: '试一下'
+        testServer: '试一下',
     },
     TEST: {
         realWorldServer: 'https://conduit.productionready.io/api',
-        otherServer: '试一下'
+        testServer: '试一下'
     },
     UAT: {
         realWorldServer: 'https://conduit.productionready.io/api',
-        otherServer: '试一下'
+        testServer: '试一下'
     },
     RELEASE: {
         realWorldServer: 'https://conduit.productionready.io/api',
-        otherServer: '试一下'
+        testServer: '试一下'
     }
 }
 
