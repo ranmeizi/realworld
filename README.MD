@@ -12,7 +12,7 @@ vite 搭建的 react 开发平台
     3. module request 时语法检测
     4. build 时语法检测
 - jest
-- 适配咱们jenkins环境变量 ```NETWORK_ENV``` 取不同的 host 地址
+- ~~适配咱们jenkins环境变量 ```NETWORK_ENV``` 取不同的 host 地址~~
 - ssr  
 
 开发
