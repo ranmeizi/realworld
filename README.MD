@@ -18,7 +18,7 @@ vite 搭建的 react 开发平台
 开发
 - 路由模块 ```react-router-dom```  
    1. 路由场景切换 ```react-transition-group```  
-   2. 路由缓存 history api 控制 ```react-router-cache-route```/```react-activation```  
+   2. ~~路由缓存 history api 控制 ```react-router-cache-route```/```react-activation```~~  
    3. 路由一级页状态存入 store
 - 换肤
 - iconfonts

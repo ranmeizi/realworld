@@ -10,6 +10,6 @@ export default (config) => ({
 		}),
 	],
 	build: {
-		target: 'es2015',
+		target: 'es2015'
 	},
 });

@@ -1,8 +1,7 @@
 import React, { Component, Suspense } from 'react'
 import './style.less'
 import TabBar from './components/Tabbar'
-import Header from './components/Header'
-import { renderRoutes } from 'react-router-config'
+import renderRoutes from '@/routes/renderRoutes'
 
 export default class MobileLayout extends Component<any> {
     state = {
@@ -10,9 +9,9 @@ export default class MobileLayout extends Component<any> {
         selectedTab: 'blueTab'
     }
     render() {
+        console.log(this.props)
         return (
             <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
-                <Header />
                 <div className='rvt-router-view'>
                     <Suspense fallback={<div>Loading...</div>}>
                         {

@@ -33,6 +33,11 @@ export default {
             libraryName: "antd-mobile",
             libraryDirectory: "es",
             style: true
+        }),
+        usePluginImport({
+            libraryName: '@material-ui/icons',
+            libraryDirectory: 'esm',
+            camel2DashComponentName: false
         })
     ],
     resolve: {

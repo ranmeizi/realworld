@@ -10,13 +10,16 @@
     "lint": "./node_modules/.bin/eslint src/ --ext .js,.ts,.jsx,.tsx --quiet"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "antd-mobile": "^2.3.4",
     "axios": "^0.21.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.4",
-    "react-router-config": "^5.1.1",
+    "react-router-cache-route": "^1.11.1",
     "react-router-dom": "^5.2.0",
+    "react-transition-group": "^4.4.2",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0"
   },
@@ -27,7 +30,6 @@
     "@types/node": "^16.6.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "@types/react-router-config": "^5.0.3",
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",

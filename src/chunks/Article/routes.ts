@@ -1,9 +1,8 @@
-import { RouteConfig } from 'react-router-config'
 import Home from './pages/Home'
 
-const routes: RouteConfig[] = [
+const routes = [
     {
-        path: '/article/home',
+        path: '/article',
         component: Home
     }
 ]

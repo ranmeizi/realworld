@@ -1,114 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TabBar } from 'antd-mobile';
+import { Home as HomeIcon, Person as PersonIcon } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom'
 
-export default class TabBarComp extends React.Component<any> {
+const TABS = {
+    home: '/article',
+    user: '/setting'
+}
 
-    state = {
-        selectedTab: 'redTab',
-        hidden: false
-    }
+export default function TabBarComp() {
+    let history = useHistory();
+    const [selectedTab, setSelectedTab] = useState<'home' | 'user'>('home')
 
-    render() {
-        return (
-            <div style={{ position: 'fixed', width: '100%', bottom: 0 }}>
-                <TabBar
-                    unselectedTintColor="#949494"
-                    tintColor="#33A3F4"
-                    barTintColor="white"
-                    hidden={this.state.hidden}
-                >
-                    <TabBar.Item
-                        title="Life"
-                        key="Life"
-                        icon={<div style={{
-                            width: '22px',
-                            height: '22px',
-                            background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
-                        }}
-                        />
-                        }
-                        selectedIcon={<div style={{
-                            width: '22px',
-                            height: '22px',
-                            background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
-                        }}
-                        />
-                        }
-                        selected={this.state.selectedTab === 'blueTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'blueTab',
-                            });
-                        }}
-                        data-seed="logId"
-                    />
-                    <TabBar.Item
-                        icon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        selectedIcon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        title="Koubei"
-                        key="Koubei"
-                        selected={this.state.selectedTab === 'redTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'redTab',
-                            });
-                        }}
-                        data-seed="logId1"
-                    />
-                    <TabBar.Item
-                        icon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        selectedIcon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat'
-                            }}
-                            />
-                        }
-                        title="Friend"
-                        key="Friend"
-                        selected={this.state.selectedTab === 'greenTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'greenTab',
-                            });
-                        }}
-                    />
-                    <TabBar.Item
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-                        title="My"
-                        key="my"
-                        selected={this.state.selectedTab === 'yellowTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'yellowTab',
-                            });
-                        }}
-                    />
-                </TabBar>
-            </div>
-        );
-    }
+    useEffect(() => {
+        console.log(history, TABS[selectedTab])
+        history.push(TABS[selectedTab])
+    }, [selectedTab])
+
+    return (
+        <div style={{ position: 'fixed', width: '100%', bottom: 0 }}>
+            <TabBar
+                unselectedTintColor="#949494"
+                tintColor="#33A3F4"
+                barTintColor="white"
+            >
+                <TabBar.Item
+                    title="首页"
+                    key="home"
+                    icon={<HomeIcon />}
+                    selectedIcon={<HomeIcon color="primary" />}
+                    selected={selectedTab === 'home'}
+                    onPress={() => setSelectedTab('home')}
+                    data-seed="logId"
+                />
+                <TabBar.Item
+                    icon={<PersonIcon />}
+                    selectedIcon={<PersonIcon color='primary' />}
+                    title="我的"
+                    key="user"
+                    selected={selectedTab === 'user'}
+                    onPress={() => setSelectedTab('user')}
+                />
+            </TabBar>
+        </div>
+    );
 }
