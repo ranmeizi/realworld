@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavBar, Icon } from 'antd-mobile';
 
-export default function () {
+export default function Header() {
     return <div>
         <NavBar
             mode="light"

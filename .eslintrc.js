@@ -22,5 +22,7 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "react/display-name": 0,
+        "@typescript-eslint/no-inferrable-types": 0
     }
 };

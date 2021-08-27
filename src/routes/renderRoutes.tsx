@@ -10,7 +10,7 @@ interface CustRouteParam {
     childRoutes?: MyRoute[]
 }
 
-export default function (routes: MyRoute[], extraProps = {}, switchProps = {}) {
+export default function renderRoutes(routes: MyRoute[], extraProps = {}, switchProps = {}) {
     return <CacheSwitch {...switchProps}>{
         routes.map(({
             component,

@@ -4,16 +4,15 @@ import { Home as HomeIcon, Person as PersonIcon } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom'
 
 const TABS = {
-    home: '/article',
-    user: '/setting'
+    home: '/f/home',
+    user: '/f/user'
 }
 
 export default function TabBarComp() {
-    let history = useHistory();
+    const history = useHistory();
     const [selectedTab, setSelectedTab] = useState<'home' | 'user'>('home')
 
     useEffect(() => {
-        console.log(history, TABS[selectedTab])
         history.push(TABS[selectedTab])
     }, [selectedTab])
 
