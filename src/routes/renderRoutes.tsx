@@ -1,30 +1,22 @@
-import React from 'react'
-import { RouteProps, Route } from 'react-router-dom'
-import CacheRoute, { CacheRouteProps } from "react-router-cache-route";
-import { CacheSwitch } from 'react-router-cache-route'
+import React, { useEffect, useState, Suspense } from 'react'
+import { RouteProps, Switch, Route, withRouter } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import { KeepAlive } from 'react-activation'
 
 interface CustRouteParam {
     isAuth?: boolean, // 是否需要校验路由权限
-    isCache?: boolean // 是否需要缓存
-    cacheProps?: CacheRouteProps // Cache组件props值
+    isCache?: boolean, // 是否需要缓存
+    isTransition?: boolean, // 是否使用过度动画
     childRoutes?: MyRoute[]
 }
 
 export default function renderRoutes(routes: MyRoute[], extraProps = {}, switchProps = {}) {
-    return <CacheSwitch {...switchProps}>{
+    return <Switch {...switchProps} >{
         routes.map(({
             component,
             ...route
         }, index) => {
-            let RouteComp = Route
-            // 根据isCache决定使用CacheRoute
-            if (route.isCache) {
-                RouteComp = CacheRoute
-                if (route.cacheProps) {
-                    Object.assign(route, route.cacheProps)
-                    delete route.cacheProps
-                }
-            }
+            let RouteComp: React.ComponentType<MyRoute> = Route
 
             let render = route.render
                 ? (props: any) => route.render!({ ...props, ...extraProps, route })
@@ -32,11 +24,17 @@ export default function renderRoutes(routes: MyRoute[], extraProps = {}, switchP
                     const Component = component as React.ComponentType
                     return <Component {...props} {...extraProps} route={route} />
                 }
+            if (route.isCache) {
+                render = withKeepAlive(render)
+            }
+            if (route.isTransition) {
+                render = withTransition(render)
+            }
 
             // 是否需要校验权限
-            if (route.isAuth) {
-                render = withAuth(render)
-            }
+            // if (route.isAuth) {
+            //     render = withAuth(render)
+            // }
 
             return <RouteComp
                 key={index}
@@ -46,7 +44,7 @@ export default function renderRoutes(routes: MyRoute[], extraProps = {}, switchP
                 render={render}
             />
         })}
-    </CacheSwitch>
+    </Switch>
 }
 
 export type MyRoute = CustRouteParam & RouteProps
@@ -55,5 +53,48 @@ export type MyRoute = CustRouteParam & RouteProps
 function withAuth(render: (props: any) => React.ReactNode) {
     return function (props: any) {
         return render(props)
+    }
+}
+
+function withKeepAlive(render: (props: any) => React.ReactNode) {
+    console.log('dssds', KeepAlive)
+    return function (props: any) {
+        return <KeepAlive>{render(props)}</KeepAlive>
+    }
+}
+
+
+// export function withTransition(Component: any) {
+//     return function (props: any) {
+//         const [inProp, setInProp] = useState(false);
+//         useEffect(() => {
+//             setInProp(true)
+//             return () => setInProp(false)
+//         }, [])
+//         return <CSSTransition in={inProp} timeout={500} classNames="fade" key={location.pathname}>
+//             <Component {...props} />
+//         </CSSTransition>
+//     }
+// }
+const Transition = withRouter(function (props: any) {
+    const [inProp, setInProp] = useState(false);
+    useEffect(() => {
+        console.log('mount', props)
+        setInProp(true)
+        return () => setInProp(false)
+    }, [])
+    return <CSSTransition in={inProp} timeout={500} classNames="fade" key={location.pathname}>
+        <Suspense fallback={<div>对不起</div>}>
+            {props.children}
+        </Suspense>
+    </CSSTransition>
+
+})
+
+function withTransition(render: (props: any) => React.ReactNode) {
+    return function (props: any) {
+        return <Transition>
+            {render(props)}
+        </Transition>
     }
 }

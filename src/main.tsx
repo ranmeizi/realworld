@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom'
 import './assets/css/index.css'
 import App from './App'
 import { Provider } from 'react-redux'
+import { AliveScope } from 'react-activation'
 import store from './redux/store'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <AliveScope>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </AliveScope>
+  </Provider>
+  ,
   document.getElementById('root')
 )
