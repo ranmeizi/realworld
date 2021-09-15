@@ -58,6 +58,7 @@ export default {
         },
         cors: {
             origin: ['http://wozijidehoutai.com']
-        }
+        },
+        historyApiFallback: true
     }
 }

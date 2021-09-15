@@ -8,7 +8,6 @@
                 }
             }
         ],
-        "@babel/preset-typescript",
-        "react-activation/babel"
+        "@babel/preset-typescript"
     ]
 }

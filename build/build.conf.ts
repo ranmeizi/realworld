@@ -1,7 +1,5 @@
 import legacy from '@vitejs/plugin-legacy';
 
-import { babel } from '@rollup/plugin-babel';
-
 export default (config) => ({
 	...config,
 	plugins: [
@@ -12,9 +10,6 @@ export default (config) => ({
 		}),
 	],
 	build: {
-		target: 'es2015',
-		// rollupOptions: {
-		// 	plugins: [babel({ babelHelpers: 'bundled' })]
-		// }
+		target: 'es2015'
 	},
 });

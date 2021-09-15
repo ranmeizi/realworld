@@ -1,43 +1,46 @@
 import React from 'react'
 import { lazy } from 'react'
-import MobileLayout from '../layouts/mobile'
+import ErrorBoundary from '../layouts/mobile/ErrorBoundary'
 import { MyRoute } from '@/routes/renderRoutes'
 import { Redirect } from 'react-router-dom'
 import Article from '../chunks/Article'
 import User from '../chunks/User'
-
-console.log('???', MobileLayout)
+import TabView from '@/layouts/mobile/TabView'
 
 const ArticleModule = new Article()
 const UserModule = new User()
 
+// 嵌套路由都脑残。。
+
 const routes: MyRoute[] = [
     {
         path: '/',
-        exact: true,
-        component: () => <Redirect to='/f/home' />
-    }
-    , {
-        path: '/f',
-        component: MobileLayout,
-        isCache: true,
-        childRoutes: [
+        component: ErrorBoundary,
+        routes: [
+            // home
             {
-                path: '/f/home',
+                path: '/h',
                 isCache: true,
+                component: TabView,
+                routes: [
+                    {
+                        path: '/h/home',
+                        isCache: true,
+                        component: lazy(() => ArticleModule.get())
+                    }, {
+                        path: '/h/user',
+                        isCache: true,
+                        component: lazy(() => UserModule.get())
+                    }
+                ]
+            },
+            {
+                path: '/posts/:id',
                 isTransition: true,
-                component: lazy(() => ArticleModule.get())
-            }, {
-                path: '/f/user',
                 isCache: true,
-                isTransition: true,
-                component: lazy(() => UserModule.get())
+                component: lazy(() => ArticleModule.get('Posts'))
             }
-        ]
-    }, {
-        path: '/posts/:id',
-        isTransition: true,
-        component: lazy(() => ArticleModule.get('Posts'))
+        ],
     }
 ]
 

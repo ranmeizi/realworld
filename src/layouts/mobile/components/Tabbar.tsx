@@ -4,8 +4,8 @@ import { Home as HomeIcon, Person as PersonIcon } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom'
 
 const TABS = {
-    home: '/f/home',
-    user: '/f/user'
+    home: '/h/home',
+    user: '/h/user'
 }
 
 export default function TabBarComp() {
