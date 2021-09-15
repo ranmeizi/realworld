@@ -10,6 +10,6 @@ export default class Aritcle extends AsyncModule {
         if (!Aritcle._instance) {
             Aritcle._instance = import('./Article')
         }
-        return this.getModule(Aritcle._instance, name)
+        return AsyncModule.getModule(Aritcle._instance, name)
     }
 }

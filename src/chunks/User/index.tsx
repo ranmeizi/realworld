@@ -10,6 +10,6 @@ export default class User extends AsyncModule {
         if (!User._instance) {
             User._instance = import('./User')
         }
-        return this.getModule(User._instance, name)
+        return AsyncModule.getModule(User._instance, name)
     }
 }

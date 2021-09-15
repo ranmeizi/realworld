@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { RouteProps, Switch, Route, withRouter, matchPath } from 'react-router-dom'
+import { RouteProps, Switch, Route, withRouter } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { KeepAlive } from 'react-activation'
 
@@ -29,7 +29,6 @@ function Routes(props: any) {
     >
         <CSSTransition
             timeout={500}
-            classNames={'fade'}
             key={location.pathname}
         >
             <Switch location={location}>
