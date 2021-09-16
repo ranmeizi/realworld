@@ -21,7 +21,7 @@ export default function TabBarComp(props: any) {
     }, [location.pathname])
 
     return (
-        <div style={{ position: 'fixed', width: '100%', bottom: 0 }}>
+        <div style={{  }}>
             {
                 renderRoutes(props.route.routes)
             }
