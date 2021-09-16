@@ -12,9 +12,11 @@ code {
     monospace;
 }
 
+
 .ka-wrapper {
   position: fixed;
   height  : 100vh;
+  height  : calc(100vh - var(--vh-offset, 0px));
   width   : 100vw;
   top     : 0;
   left    : 0;

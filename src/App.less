@@ -1,7 +1,4 @@
 .rvt-app {
-    height: 100vh;
-    width : 100vw;
-
     .am-tab-bar-item {
         height: fit-content
     }
@@ -11,11 +8,11 @@
         bottom  : 0;
         width   : 100%;
         height  : fit-content;
+        z-index : 3000;
     }
 }
 
 .rvt-tabview {
-    height: calc(~'100vh - 50px');
-
-
+    height: calc(100vh - 50px);
+    height: calc(100vh - var(--vh-offset, 0px) -50px);
 }

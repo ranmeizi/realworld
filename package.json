@@ -21,7 +21,8 @@
     "react-router-dom": "^5.2.0",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "vh-check": "^2.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",

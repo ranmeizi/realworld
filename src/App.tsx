@@ -2,13 +2,25 @@ import React from 'react'
 import './App.less'
 import { BrowserRouter as Router } from "react-router-dom";
 import routes from './routes'
-import Routes from './routes/renderRoutes'
+import { renderRoutes } from './routes/renderRoutes'
 import './assets/css/index.css'
+import vhCheck from 'vh-check'
+
+vhCheck()
+
+const style = {
+  app: {
+    height: window.innerHeight + 'px'
+  }
+}
 
 function App() {
-  return <div className='rvt-app'>
+  return <div className='rvt-app' style={style.app}>
     <Router>
-      <Routes routes={routes} />
+      {/* <Routes routes={routes} /> */}
+      {
+        renderRoutes(routes)
+      }
     </Router>
   </div>
 }
