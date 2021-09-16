@@ -1,35 +1,35 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TabBar } from 'antd-mobile';
+import { useHistory, useLocation } from 'react-router-dom'
 import { Home as HomeIcon, Person as PersonIcon } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom'
-import Article from '@/chunks/Article'
-import User from '@/chunks/User'
-import TabView from '@/layouts/mobile/components/TabView'
-
-const ArticleModule = new Article()
-const UserModule = new User()
-
-const render = (Comp: React.ComponentType) => {
-    return <Suspense fallback='tab对不起' >
-        <TabView>
-            <Comp />
-        </TabView>
-    </Suspense>
-}
+import { renderRoutes } from '@/routes/renderRoutes';
 
 const TABS = {
-    home: 'home',
-    user: 'user'
+    home: '/f/home',
+    user: '/f/user'
 }
 
-export default function TabBarComp() {
+export default function TabBarComp(props: any) {
     const [selectedTab, setSelectedTab] = useState<'home' | 'user'>('home')
+    const history = useHistory()
+    const location = useLocation()
+    useEffect(() => {
+        history.push(TABS[selectedTab])
+    }, [selectedTab])
+    useEffect(() => {
+        console.log(location.pathname)
+    }, [location.pathname])
+
     return (
         <div style={{ position: 'fixed', width: '100%', bottom: 0 }}>
+            {
+                renderRoutes(props.route.routes)
+            }
             <TabBar
                 unselectedTintColor="#949494"
                 tintColor="#33A3F4"
                 barTintColor="white"
+                noRenderContent
             >
                 <TabBar.Item
                     title="首页"
@@ -38,12 +38,7 @@ export default function TabBarComp() {
                     selectedIcon={<HomeIcon color="primary" />}
                     selected={selectedTab === 'home'}
                     onPress={() => setSelectedTab('home')}
-                    data-seed="logId"
-                >
-                    {render(
-                        lazy(() => ArticleModule.get())
-                    )}
-                </TabBar.Item>
+                />
                 <TabBar.Item
                     icon={<PersonIcon />}
                     selectedIcon={<PersonIcon color='primary' />}
@@ -51,11 +46,7 @@ export default function TabBarComp() {
                     key="user"
                     selected={selectedTab === 'user'}
                     onPress={() => setSelectedTab('user')}
-                >
-                    {render(
-                        lazy(() => UserModule.get())
-                    )}
-                </TabBar.Item>
+                />
             </TabBar>
         </div>
     );

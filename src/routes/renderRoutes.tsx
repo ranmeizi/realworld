@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react'
-import { RouteProps, Switch, Route, withRouter } from 'react-router-dom'
+import React, { Suspense, useMemo } from 'react'
+import { RouteProps, Switch, Route, withRouter, matchPath } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { KeepAlive } from 'react-activation'
 
 interface CustRouteParam {
     isAuth?: boolean, // 是否需要校验路由权限
+    isTransition?: boolean, // 是否需要过渡动画
     isCache?: boolean, // 是否需要缓存
-    isTransition?: boolean, // 是否过渡
     routes?: MyRoute[], // 普通路由
 }
 
@@ -20,6 +20,13 @@ function Routes(props: any) {
     const location = props.location
     const history = props.history
 
+    const transitionKey = useMemo(() => {
+        const route = routes.find(r => matchPath(location.pathname, r))
+        return route?.isTransition
+            ? route.path
+            : 'notransition'
+    }, [location.pathname])
+
     return <TransitionGroup
         className={'square-wrapper'}
         childFactory={child => React.cloneElement(
@@ -29,7 +36,7 @@ function Routes(props: any) {
     >
         <CSSTransition
             timeout={500}
-            key={location.pathname}
+            key={transitionKey as string}
         >
             <Switch location={location}>
                 {renderRoutes(routes)}
@@ -50,7 +57,7 @@ function withKeepAlive(render: (props: any) => React.ReactNode) {
 }
 
 // renderRoutes
-function renderRoutes(routes: MyRoute[]) {
+export function renderRoutes(routes: MyRoute[]) {
     return routes.map((route, index) => {
         let RouteComp: React.ComponentType<MyRoute> = Route
         let render = route.render
