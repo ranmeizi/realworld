@@ -28,7 +28,7 @@ function Routes(props: any) {
     }, [location.pathname])
 
     return <TransitionGroup
-        className={'square-wrapper'}
+        className={'transition-group'}
         childFactory={child => React.cloneElement(
             child,
             { classNames: ANIMATION_MAP[history.action as 'PUSH' | 'POP'] }
