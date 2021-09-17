@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
-import './style.less'
-import Routes from '@/routes/renderRoutes'
+import TransitionRoutes from '@/routes/renderRoutes'
 
 // 顶层路由错误边界
 
@@ -22,7 +21,7 @@ export default class ErrorBoundary extends PureComponent<any> {
                 {
                     hasError
                         ? <div>出错啦</div>
-                        : <Routes {...this.props.route} />
+                        : <TransitionRoutes {...this.props.route} />
                 }
             </div>
         )

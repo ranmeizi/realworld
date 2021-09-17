@@ -5,7 +5,7 @@ const baseURL = hosts.realWorldServer
 
 const instance = axios.create({
     baseURL: baseURL,
-    timeout: 15000
+    timeout: 3000
 });
 
 // 请求拦截

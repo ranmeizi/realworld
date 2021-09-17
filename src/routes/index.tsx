@@ -1,6 +1,6 @@
 import React from 'react'
 import { lazy } from 'react'
-import ErrorBoundary from '../layouts/mobile/ErrorBoundary'
+import ErrorBoundary from '../layouts/ErrorBoundary'
 import { MyRoute } from '@/routes/renderRoutes'
 import Article from '../chunks/Article'
 import User from '@/chunks/User'

@@ -1,7 +1,5 @@
 .rvt-app {
-    .am-tab-bar-item {
-        // height: 100%
-    }
+    @import url('./assets//css/user.less');
 
     .am-tab-bar {
         position: fixed;
@@ -26,6 +24,7 @@
     height        : calc(100vh - var(--vh-offset, 0px));
     padding-bottom: 50px;
     box-sizing    : border-box;
+    overflow-y    : scroll;
 }
 
 .transition-group {

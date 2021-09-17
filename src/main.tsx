@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './assets/css/index.css'
+import './assets/css/index.less'
 import App from './App'
 import { Provider } from 'react-redux'
 import { AliveScope } from 'react-activation'

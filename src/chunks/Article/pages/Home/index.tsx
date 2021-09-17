@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import ArticleList from '../../components/ArticleList'
+
+const homeQuery = {}
 
 function Home() {
-    return <div className='rvt-tabview' style={{ background: '#ca112d' }}>
+    return <div className='rvt-tabview'>
         <div>我是首页</div>
-        <input type="text" /><Link to='/posts/1'>去看文章</Link>
+        <ArticleList query={homeQuery} offset />
     </div>
 }
 

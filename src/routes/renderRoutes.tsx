@@ -2,6 +2,7 @@ import React, { Suspense, useMemo } from 'react'
 import { RouteProps, Switch, Route, withRouter, matchPath } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { KeepAlive } from 'react-activation'
+import Loading from '@/components/loading'
 
 interface CustRouteParam {
     isAuth?: boolean, // 是否需要校验路由权限
@@ -15,11 +16,13 @@ const ANIMATION_MAP = {
     POP: 'back'
 }
 
-function Routes(props: any) {
+// 这玩意只能用1级
+function TransitionRoutes(props: any) {
     const routes: MyRoute[] = props.routes
     const location = props.location
     const history = props.history
 
+    // 是否需要过渡动画
     const transitionKey = useMemo(() => {
         const route = routes.find(r => matchPath(location.pathname, r))
         return route?.isTransition
@@ -45,7 +48,7 @@ function Routes(props: any) {
     </TransitionGroup>
 }
 
-export default withRouter(Routes)
+export default withRouter(TransitionRoutes)
 
 export type MyRoute = CustRouteParam & RouteProps
 
@@ -64,8 +67,9 @@ export function renderRoutes(routes: MyRoute[]) {
             ? route.render
             : (props: any) => {
                 const Component = route.component as React.ComponentType
-                return <Suspense fallback='对不起。。。'><Component {...props} /></Suspense>
+                return <Suspense fallback={<Loading />}><Component {...props} /></Suspense>
             }
+        // 是否需要缓存
         if (route.isCache) {
             render = withKeepAlive(render)
         }

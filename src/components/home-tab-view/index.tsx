@@ -16,15 +16,14 @@ export default function TabBarComp(props: any) {
     useEffect(() => {
         history.push(TABS[selectedTab])
     }, [selectedTab])
-    useEffect(() => {
-        console.log(location.pathname)
-    }, [location.pathname])
 
     return (
-        <div style={{  }}>
-            {
-                renderRoutes(props.route.routes)
-            }
+        <div style={{ position: 'fixed', width: '100%', bottom: 0, zIndex: 3000 }}>
+            <div className='rvt-tabview'>
+                {
+                    renderRoutes(props.route.routes)
+                }
+            </div>
             <TabBar
                 unselectedTintColor="#949494"
                 tintColor="#33A3F4"

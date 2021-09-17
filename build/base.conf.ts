@@ -22,6 +22,13 @@ const postcssOpts = {
 
 export default {
     postcss: postcssOpts,
+    css: {
+        preprocessorOptions: {
+            less: {
+                javascriptEnabled: true
+            }
+        }
+    },
     define: {
         'process.env': {
             'NETWORK_ENV': JSON.stringify(process.env.NETWORK_ENV),
@@ -36,6 +43,11 @@ export default {
         }),
         usePluginImport({
             libraryName: '@material-ui/icons',
+            libraryDirectory: 'esm',
+            camel2DashComponentName: false
+        }),
+        usePluginImport({
+            libraryName: '@material-ui/core',
             libraryDirectory: 'esm',
             camel2DashComponentName: false
         })

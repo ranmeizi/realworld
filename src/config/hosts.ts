@@ -1,4 +1,4 @@
-const NETWORK_ENV = process.env.NETWORK_ENV as Envs
+const NETWORK_ENV = process.env.NETWORK_ENV as Envs || 'DEVELOP'
 
 // 环境变量可选值
 type Envs = 'DEVELOP' | 'TEST' | 'UAT' | 'RELEASE'
