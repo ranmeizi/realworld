@@ -7,9 +7,15 @@ export default (config) => ({
 		legacy({
 			targets: ['ie >= 11'],
 			additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-		}),
+		})
 	],
+	// build: {
+	// 	target: 'es2015',
+	// 	commonjsOptions: { transformMixedEsModules: true }
+	// },
 	build: {
-		target: 'es2015'
-	},
+		commonjsOptions: {
+		  transformMixedEsModules: true
+		}
+	  }
 });
