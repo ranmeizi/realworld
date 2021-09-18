@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo } from 'react'
 import { RouteProps, Switch, Route, withRouter, matchPath } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { KeepAlive } from 'react-activation'
+import { KeepAlive, useAliveController } from 'react-activation'
 import Loading from '@/components/loading'
 
 interface CustRouteParam {

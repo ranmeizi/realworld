@@ -41,7 +41,7 @@ const routes: MyRoute[] = [
                 ]
             },
             {
-                path: '/posts/:id',
+                path: '/posts/:slug',
                 isCache: true,
                 isTransition: true,
                 component: lazy(() => ArticleModule.get('Posts'))

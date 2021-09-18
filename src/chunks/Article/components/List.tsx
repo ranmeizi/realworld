@@ -15,6 +15,10 @@ const styles: JssSheet = {
         padding: '0 16px',
         boxSizing: 'border-box'
     },
+    root: {
+        padding: '16px 0',
+        borderBottom: '1px solid rgba(57, 60, 67, 0.08)'
+    },
     userImg: {
         display: 'inline-block',
         marginRight: '14px'
@@ -42,38 +46,37 @@ export default function ArticleList({ query, offset }: Props) {
         ...query
     }), [])
 
-    const onRowClick = useCallback((rowData) => {
-        console.log(rowData)
-        history.push('/posts/1')
+    const onRowClick = useCallback((data: ArticleAPI.Article) => {
+        history.push(`/posts/${data.slug}`)
     }, [])
 
-    const renderRow = useMemo(() => (rowData: any, sectionID: any, rowID: any) => {
-        return <div className='article-row-item' onClick={() => onRowClick(rowData)}>
+    const renderRow = useMemo(() => (data: ArticleAPI.Article, sectionID: any, rowID: any) => {
+        return <div className='article-row-item' style={styles.root} onClick={() => onRowClick(data)}>
             {/* 头部 */}
             <div className='f-r j-between'>
                 <div className='f-r a-center'>
                     {/* 头像 */}
-                    <img className='user-img' src={defaultImg} alt="用户头像" style={styles.userImg} />
+                    <img className='user-img' src={data?.author?.image || defaultImg} alt="用户头像" style={styles.userImg} />
                     <div>
-                        <div className='header'>昵称示例</div>
-                        <div className='secd'>1小时前</div>
+                        <div className='header'>{data?.author?.username || '示例昵称'}</div>
+                        <div className='secd'>{data.updateAt || '1小时前'}</div>
                     </div>
                 </div>
                 {/* 关注按钮 */}
                 <div>关注</div>
             </div>
+            {/* 标题 */}
+            <div className='title'>
+                {data.title || '我是一个标题'}
+            </div>
             {/* 正文 */}
             <div className='content'>
-                我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行
-                我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行
-                我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行
-                我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行
-                我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行我管你有多少我就显示三行
+                {data.description || defaultContent}
             </div>
             {/* 评论/点赞 */}
             <div className='f-r j-end' style={styles.actionBar}>
                 <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><CommentIcon style={styles.icon1} /></div>
-                <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><ThumbUpAltIcon style={styles.icon2} />9999</div>
+                <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><ThumbUpAltIcon style={styles.icon2} />{data.favoritesCount || '9999'}</div>
             </div>
         </div>
     }, [])
@@ -87,6 +90,4 @@ export default function ArticleList({ query, offset }: Props) {
     </div>
 }
 
-function renderRow() {
-
-}
+const defaultContent = '你知道吗，每刷新1次，你的页面就变成了新的，刷新2次，就会变2次'

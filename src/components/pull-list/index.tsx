@@ -23,6 +23,7 @@ type PullListProps = {
     offset?: boolean,
     // 供外部调用getData做主动查询用
     apiRef?: TypeRef,
+    defaultPagination?: Pagination,
     // ！！！关键  外部需要给组件提供获取数据的接口
     getDataMethod(pagination: Pagination): Promise<Data>
 }
@@ -37,8 +38,8 @@ export default class PullList extends Component<PullListProps & Partial<ListView
         }),
         refreshing: true,
         isLoading: true,
-        pagination: {
-            pageNum: 1,
+        pagination: this.props.defaultPagination || {
+            pageNum: 0,
             pageSize: 20,
             total: 0
         },
@@ -52,7 +53,7 @@ export default class PullList extends Component<PullListProps & Partial<ListView
         this.props.apiRef && (this.props.apiRef.current = {
             getData: this.getData
         })
-        this.getData(1)
+        this.getData(0)
         this.onResize()
         // 监听resize事件
         window.addEventListener('resize', this.onResize)
@@ -73,7 +74,7 @@ export default class PullList extends Component<PullListProps & Partial<ListView
         const { list, total } = await getDataMethod({ pageNum, pageSize })
         console.log(list, 'hahaha')
         // pageNum===1 重新创建DataSource
-        if (pageNum === 1) {
+        if (pageNum === 0) {
             this.rData = [...list]
             this.setState({
                 dataSource: new ListView.DataSource({

@@ -10,7 +10,10 @@ export interface GetArticlesParam {
 }
 
 export type Author = {
-
+    username: string,
+    bio: string,
+    image: string,
+    following: boolean
 }
 
 export type Article = {
@@ -26,6 +29,9 @@ export type Article = {
     author: Author,
 }
 
+/**
+ * 获取文章数据
+ */
 export async function getArticles({
     tag,
     author,
@@ -40,14 +46,28 @@ export async function getArticles({
         const res = await RW.get('/articles', {
             params: { tag, author, favorited, limit, offset }
         })
-        return res.data.map((item: any) => ({
-            list: item.articles,
-            total: item.articlesCount
-        }))
+        return {
+            list: res.data.articles,
+            total: res.data.articlesCount
+        }
     } catch (e) {
+        console.log(e)
         return {
             list: Array(20).fill(1),
             total: 0
         }
+    }
+}
+
+export interface GetArticleDetailParam {
+    slug: string // Slug of the article to get
+}
+
+export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise<Article | {}> {
+    try {
+        const res = await RW.get(`/articles/${slug}`)
+        return res.data.article || {}
+    } catch {
+        return {}
     }
 }

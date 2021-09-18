@@ -35,3 +35,6 @@ vite 搭建的 react 开发平台
 - 原生事件交互
 - utils
 - 公共 components
+
+# 避免使用context
+react-activation这个库改变组件层级，对context有所影响，不想再修补索性不用了，真的用的话可以去看作者写的解决方案自行解决
