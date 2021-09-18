@@ -12,9 +12,8 @@ const TABS = {
 export default function TabBarComp(props: any) {
     const [selectedTab, setSelectedTab] = useState<'home' | 'user'>('home')
     const history = useHistory()
-    const location = useLocation()
     useEffect(() => {
-        history.push(TABS[selectedTab])
+        history.replace(TABS[selectedTab])
     }, [selectedTab])
 
     return (

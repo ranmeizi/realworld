@@ -1,8 +1,9 @@
-import React, { Suspense, useMemo } from 'react'
-import { RouteProps, Switch, Route, withRouter, matchPath } from 'react-router-dom'
+import React, { Suspense, useMemo, useEffect } from 'react'
+import { RouteProps, Switch, Route, withRouter, matchPath, useHistory } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { KeepAlive, useAliveController } from 'react-activation'
 import Loading from '@/components/loading'
+import useForwardActivationControl from '@/utils/hooks/useForwardActivationControl'
 
 interface CustRouteParam {
     isAuth?: boolean, // 是否需要校验路由权限
@@ -55,14 +56,25 @@ export type MyRoute = CustRouteParam & RouteProps
 // 使用keepalive
 function withKeepAlive(render: (props: any) => React.ReactNode) {
     return function (props: any) {
-        return <KeepAlive>{render(props)}</KeepAlive>
+        return <ForwardAliveComponent {...props}>{render(props)}</ForwardAliveComponent>
     }
 }
+
+function ForwardAliveComponent(props: any) {
+    const name = useMemo(() => {
+        const url = props.match.url
+        console.log(url, '重启')
+        return url
+    }, [])
+    useForwardActivationControl({ name, match: props.match })
+    return <KeepAlive id={name} >{props.children}</KeepAlive>
+}
+
 
 // renderRoutes
 export function renderRoutes(routes: MyRoute[]) {
     return routes.map((route, index) => {
-        let RouteComp: React.ComponentType<MyRoute> = Route
+        const RouteComp: React.ComponentType<MyRoute> = Route
         let render = route.render
             ? route.render
             : (props: any) => {

@@ -63,7 +63,7 @@ export interface GetArticleDetailParam {
     slug: string // Slug of the article to get
 }
 
-export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise<Article | {}> {
+export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise<Article | Record<string, unknown>> {
     try {
         const res = await RW.get(`/articles/${slug}`)
         return res.data.article || {}
