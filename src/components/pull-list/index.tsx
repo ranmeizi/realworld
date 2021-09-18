@@ -1,7 +1,8 @@
 import React, { Component, createRef } from 'react'
-import { PullToRefresh, ListView } from 'antd-mobile'
+import { ListView } from 'antd-mobile'
 import './style.less'
 import { ListViewPropsType } from 'antd-mobile/lib/list-view/PropsType'
+import PullToRefresh from './PullToRefresh'
 
 type TypeRef = {
     current: any
@@ -10,7 +11,7 @@ type TypeRef = {
 interface Pagination {
     pageNum: number,
     pageSize: number,
-    total?: number
+    total: number
 }
 
 // 数据格式
@@ -25,7 +26,7 @@ type PullListProps = {
     apiRef?: TypeRef,
     defaultPagination?: Pagination,
     // ！！！关键  外部需要给组件提供获取数据的接口
-    getDataMethod(pagination: Pagination): Promise<Data>
+    getDataMethod(pagination: Partial<Pagination>): Promise<Data>
 }
 
 // 为了简单封装了很多状态到这里，只能提供api供外部调用
@@ -143,7 +144,7 @@ export default class PullList extends Component<PullListProps & Partial<ListView
                 renderFooter={() => (<div className='pull-list-footer'>
                     {isLoading ? '加载中...' : '已经没有更多数据了'}
                 </div>)}
-                renderRow={renderRow}
+                renderRow={renderRow as any}
                 renderSeparator={separator}
                 useBodyScroll={false}
                 style={{ height: this.state.height + 'px' }}
