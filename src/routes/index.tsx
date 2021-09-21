@@ -5,7 +5,7 @@ import { MyRoute } from '@/routes/renderRoutes'
 import Article from '../chunks/Article'
 import User from '@/chunks/User'
 import TabView from '@/components/home-tab-view'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 const ArticleModule = new Article()
 const UserModule = new User()
@@ -20,7 +20,9 @@ const routes: MyRoute[] = [
             {
                 path: '/',
                 exact: true,
-                render: () => <Redirect to='/f/home' />
+                // render: () => <Redirect to='/f/home' />
+                render: () => <Redirect to='/test' />
+
             },
             {
                 path: '/f',
@@ -45,9 +47,21 @@ const routes: MyRoute[] = [
                 isCache: true,
                 isTransition: true,
                 component: lazy(() => ArticleModule.get('Posts'))
+            }, {
+                path: '/test',
+                component: Test
             }
         ],
     }
 ]
 
 export default routes
+
+
+function Test() {
+    return <div>
+        <Link to='/f/home'>Article</Link>
+        <Link to='/f/user'>User</Link>
+
+    </div>
+}

@@ -4,6 +4,7 @@ import PullList from '@/components/pull-list'
 import defaultImg from '@/assets/images/default.jpeg'
 import { useHistory } from 'react-router-dom'
 import { Comment as CommentIcon, ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
+import FavouriteBtn from './FavouriteBtn'
 
 type Props = {
     offset?: boolean,
@@ -76,7 +77,8 @@ export default function ArticleList({ query, offset }: Props) {
             {/* 评论/点赞 */}
             <div className='f-r j-end' style={styles.actionBar}>
                 <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><CommentIcon style={styles.icon1} /></div>
-                <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><ThumbUpAltIcon style={styles.icon2} />{data.favoritesCount || '9999'}</div>
+                {/* <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><ThumbUpAltIcon style={styles.icon2} />{data.favoritesCount || '9999'}</div> */}
+                <FavouriteBtn {...data} />
             </div>
         </div>
     }, [])

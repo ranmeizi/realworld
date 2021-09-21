@@ -1,6 +1,5 @@
 import RW from '@/utils/Request/rw'
 
-
 export interface GetArticlesParam {
     tag?: string, // Filter by tag
     author?: string, // Filter by author (username)
@@ -65,9 +64,33 @@ export interface GetArticleDetailParam {
 
 export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise<Article | Record<string, unknown>> {
     try {
-        const res = await RW.get(`/articles/${slug}`)
+        const res = await RW.get(`/articles/${slug}`, { loading: true })
         return res.data.article || {}
     } catch {
         return {}
+    }
+}
+
+export async function favourite({ slug }: any): Promise<number> {
+    try {
+        const res = await RW.post(`/articles/${slug}/favorite`)
+        if (res.status !== 200) {
+            throw new Error('点赞失败')
+        }
+        return 1
+    } catch (e) {
+        return -1
+    }
+}
+
+export async function unfavourite({ slug }: any): Promise<number> {
+    try {
+        const res = await RW.delete(`/articles/${slug}/favorite`)
+        if (res.status !== 200) {
+            throw new Error('点赞失败')
+        }
+        return 1
+    } catch (e) {
+        return -1
     }
 }

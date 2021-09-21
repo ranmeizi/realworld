@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import * as ArticleAPI from '@/services/Articles'
 import NavBar from '@/layouts/NavBar'
 import defaultImg from '@/assets/images/default.jpeg'
@@ -16,6 +16,10 @@ export default function Posts(props: any) {
         getData()
     }, [])
 
+    const showPost = useMemo(() => {
+        return Object.keys(postData).length > 0
+    }, [postData])
+
     const getData = useCallback(async () => {
         const slug = props?.match?.params?.slug
         slug && setPostData(await ArticleAPI.getArticleDetail({ slug }))
@@ -23,29 +27,34 @@ export default function Posts(props: any) {
     return <div className='article-detail' style={{ height: '100vh' }}>
         {/* 导航 */}
         <NavBar />
-        <div>
-            <div className='f-r j-between'>
-                <div className='f-r a-center'>
-                    {/* 头像 */}
-                    <img className='user-img' src={postData?.author?.image || defaultImg} alt="用户头像" style={styles.userImg} />
-                    <div>
-                        <div className='header'>{postData?.author?.username || '示例昵称'}</div>
-                        <div className='secd'>{postData.updateAt || '1小时前'}</div>
+        {
+            showPost
+                ? <div>
+                    <div className='f-r j-between'>
+                        <div className='f-r a-center'>
+                            {/* 头像 */}
+                            <img className='user-img' src={postData?.author?.image || defaultImg} alt="用户头像" style={styles.userImg} />
+                            <div>
+                                <div className='header'>{postData?.author?.username || '示例昵称'}</div>
+                                <div className='secd'>{postData.updateAt || '1小时前'}</div>
+                            </div>
+                        </div>
+                        {/* 关注按钮 */}
+                        <div>关注</div>
                     </div>
+                    {/* 标题 */}
+                    <div>
+                        {postData.title}
+                    </div>
+                    {/* 内容 */}
+                    <div>
+                        {postData.body}
+                    </div>
+                    {/* 评论 */}
                 </div>
-                {/* 关注按钮 */}
-                <div>关注</div>
-            </div>
-            {/* 标题 */}
-            <div>
-                {postData.title}
-            </div>
-            {/* 内容 */}
-            <div>
-                {postData.body}
-            </div>
-            {/* 评论 */}
-        </div>
+                : null
+        }
+
         {/* 底部 */}
     </div>
 }
