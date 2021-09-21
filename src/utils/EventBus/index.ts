@@ -4,7 +4,7 @@ type Events = {
     [key: string]: Fn[]
 }
 
-class EventBus {
+export class EventBus {
 
     private events: Events = {}
 
