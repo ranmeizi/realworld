@@ -4,14 +4,13 @@ import { Icon } from 'antd-mobile'
 
 const style: JssSheet = {
     root: {
-        height: `${window.innerHeight}px`,
+        height: `${window.innerHeight - 95}px`,
         width: '100vw',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'fixed',
-        top: 0,
-        zIndex: 10
+        top: '45px'
     }
 }
 
@@ -47,6 +46,5 @@ export function close() {
 
 // 监听history pop事件
 window.addEventListener('popstate', () => {
-    console.log('popstate')
     close()
 })
