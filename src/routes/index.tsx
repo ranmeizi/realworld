@@ -61,6 +61,7 @@ export default routes
 function Test() {
     return <div>
         <Link to='/f/home'>Article</Link>
+        /
         <Link to='/f/user'>User</Link>
 
     </div>

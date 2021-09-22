@@ -1,3 +1,5 @@
+import * as eventTypes from './EVENT_TYPES'
+
 type Fn = (...arg: any[]) => any
 
 type Events = {
@@ -5,6 +7,8 @@ type Events = {
 }
 
 export class EventBus {
+
+    static TYPES = eventTypes
 
     private events: Events = {}
 

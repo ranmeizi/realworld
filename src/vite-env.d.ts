@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
 
 interface Window {
-    devToolsExtension: any
+    devToolsExtension: any,
+    CONSTANTS: any
 }
 
 type JssSheet = {

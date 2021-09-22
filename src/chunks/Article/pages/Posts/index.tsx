@@ -24,7 +24,7 @@ export default function Posts(props: any) {
         const slug = props?.match?.params?.slug
         slug && setPostData(await ArticleAPI.getArticleDetail({ slug }))
     }, [])
-    return <div className='article-detail' style={{ height: '100vh' }}>
+    return <div className='rvt-headerview article-detail' style={{ height: '100vh' }}>
         {/* 导航 */}
         <NavBar />
         {

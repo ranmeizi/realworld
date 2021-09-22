@@ -73,7 +73,7 @@ export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise
 
 export async function favourite({ slug }: any): Promise<number> {
     try {
-        const res = await RW.post(`/articles/${slug}/favorite`)
+        const res = await RW.post(`/articles/${slug}/favorite`, {}, { loading: true })
         if (res.status !== 200) {
             throw new Error('点赞失败')
         }
@@ -85,7 +85,7 @@ export async function favourite({ slug }: any): Promise<number> {
 
 export async function unfavourite({ slug }: any): Promise<number> {
     try {
-        const res = await RW.delete(`/articles/${slug}/favorite`)
+        const res = await RW.delete(`/articles/${slug}/favorite`, { loading: true })
         if (res.status !== 200) {
             throw new Error('点赞失败')
         }

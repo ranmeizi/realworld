@@ -5,6 +5,7 @@ import defaultImg from '@/assets/images/default.jpeg'
 import { useHistory } from 'react-router-dom'
 import { Comment as CommentIcon, ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import FavouriteBtn from './FavouriteBtn'
+import { Toast } from 'antd-mobile'
 
 type Props = {
     offset?: boolean,
@@ -48,6 +49,9 @@ export default function ArticleList({ query, offset }: Props) {
     }), [])
 
     const onRowClick = useCallback((data: ArticleAPI.Article) => {
+        if (!data.slug) {
+            return Toast.info('没有slug')
+        }
         history.push(`/posts/${data.slug}`)
     }, [])
 
@@ -77,7 +81,6 @@ export default function ArticleList({ query, offset }: Props) {
             {/* 评论/点赞 */}
             <div className='f-r j-end' style={styles.actionBar}>
                 <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><CommentIcon style={styles.icon1} /></div>
-                {/* <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><ThumbUpAltIcon style={styles.icon2} />{data.favoritesCount || '9999'}</div> */}
                 <FavouriteBtn {...data} />
             </div>
         </div>

@@ -27,8 +27,17 @@ instance.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     LoadingStack.whenResponse(response?.config)
 
+    if (response.status === 401) {
+        // 跳登陆
+        location.href = '/account'
+    }
+
     return response;
 }, function (error) {
+    if (error.response.status === 401) {
+        // 跳登陆
+        location.href = '/account'
+    }
     // 对响应错误做点什么
     LoadingStack.whenResponse(error?.config)
     return Promise.reject(error);

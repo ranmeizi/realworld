@@ -114,7 +114,7 @@ export default class PullList extends Component<PullListProps & Partial<ListView
     onRefresh = () => {
         this.setState({ refreshing: true, isLoading: true });
         // simulate initial Ajax
-        this.getData(1)
+        this.getData(0)
     }
 
     onEndReached = () => {

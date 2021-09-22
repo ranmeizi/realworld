@@ -8,6 +8,13 @@
         height  : 50px;
         z-index : 3000;
     }
+
+    .am-navbar {
+        position: fixed;
+        top     : 0;
+        width   : 100%;
+        z-index : 3000;
+    }
 }
 
 .ka-wrapper {
@@ -17,6 +24,14 @@
     width   : 100vw;
     top     : 0;
     left    : 0;
+}
+
+.rvt-headerview {
+    height     : 100vh;
+    height     : calc(100vh - var(--vh-offset, 0px));
+    padding-top: 45px;
+    box-sizing : border-box;
+    overflow-y : scroll;
 }
 
 .rvt-tabview {
