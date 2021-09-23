@@ -20,8 +20,8 @@ const routes: MyRoute[] = [
             {
                 path: '/',
                 exact: true,
-                // render: () => <Redirect to='/f/home' />
-                render: () => <Redirect to='/test' />
+                render: () => <Redirect to='/f/home' />
+                // render: () => <Redirect to='/test' />
 
             },
             {

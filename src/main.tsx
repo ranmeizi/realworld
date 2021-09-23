@@ -5,6 +5,7 @@ import App from './App'
 import { Provider } from 'react-redux'
 import { AliveScope } from 'react-activation'
 import store from './redux/store'
+import './base.less'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,3 +16,5 @@ ReactDOM.render(
   ,
   document.getElementById('root')
 )
+
+document.body.className = 'rvt-body-' + store.getState().app.theme

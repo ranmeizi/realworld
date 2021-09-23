@@ -8,3 +8,16 @@ interface Window {
 type JssSheet = {
     [key: string]: React.CSSProperties
 }
+
+type Theme = {
+    bg?: {
+        pri?: string,
+        sec?: string
+    },
+    fc: {
+        header?: string,
+        text?: string,
+        desc?: string,
+        active?: string
+    }
+}

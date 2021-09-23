@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.less'
 import { BrowserRouter as Router } from "react-router-dom";
 import routes from './routes'
 import { renderRoutes } from './routes/renderRoutes'
