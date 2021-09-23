@@ -14,6 +14,8 @@
     "@material-ui/icons": "^4.11.2",
     "antd-mobile": "^2.3.4",
     "axios": "^0.21.1",
+    "index-of": "^0.2.0",
+    "indexof": "^0.0.1",
     "react": "^17.0.0",
     "react-activation": "^0.9.4",
     "react-dom": "^17.0.0",
