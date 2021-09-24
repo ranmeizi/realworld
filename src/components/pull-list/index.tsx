@@ -130,13 +130,12 @@ export default class PullList extends Component<PullListProps & Partial<ListView
 
     render() {
         const { dataSource, pagination, refreshing, isLoading } = this.state
-        const { renderRow, contentContainerStyle = {} } = this.props
-        const separator = (sectionID: any, rowID: any) => {
+        const { renderRow, contentContainerStyle = {}, renderSeparator = (sectionID: any, rowID: any) => {
             return <div
                 key={`${sectionID}-${rowID}`}
                 className='list-gap'
             />
-        }
+        } } = this.props
         return <div ref={this.calcRef} className='pull-list'>
             <ListView
                 dataSource={dataSource}
@@ -145,7 +144,7 @@ export default class PullList extends Component<PullListProps & Partial<ListView
                     {isLoading ? '加载中...' : '已经没有更多数据了'}
                 </div>)}
                 renderRow={renderRow as any}
-                renderSeparator={separator}
+                renderSeparator={renderSeparator}
                 useBodyScroll={false}
                 style={{ height: this.state.height + 'px' }}
                 pullToRefresh={<PullToRefresh

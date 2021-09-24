@@ -6,19 +6,20 @@ import { useHistory } from 'react-router-dom'
 import { Comment as CommentIcon, ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import FavouriteBtn from './FavouriteBtn'
 import { Toast } from 'antd-mobile'
+import useStyle from '@/theme/useThemeStyle'
 
 type Props = {
     offset?: boolean,
     query: ArticleAPI.GetArticlesParam
 }
 
-const styles: JssSheet = {
+const styleSheet = (theme: Theme): JssSheet => ({
     contentContainerStyle: {
-        padding: '0 16px',
         boxSizing: 'border-box'
     },
     root: {
-        padding: '16px 0',
+        backgroundColor: theme.bg.pri,
+        padding: '16px',
         borderBottom: '1px solid rgba(57, 60, 67, 0.08)'
     },
     userImg: {
@@ -30,16 +31,18 @@ const styles: JssSheet = {
     },
     icon1: {
         fontSize: '14px',
-        color: 'rgba(57, 60, 67, 0.56)',
+        color: theme.fc.desc,
         marginRight: '40px'
     },
-    icon2: {
-        fontSize: '14px',
-        color: 'rgba(57, 60, 67, 0.56)'
+    icon2: {},
+    guanzhu: {
+        color: theme.fc.header
     }
-}
+})
 
 export default function ArticleList({ query, offset }: Props) {
+
+    const styles = useStyle(styleSheet)
 
     const history = useHistory()
 
@@ -58,7 +61,7 @@ export default function ArticleList({ query, offset }: Props) {
     const renderRow = useMemo(() => (data: ArticleAPI.Article, sectionID: any, rowID: any) => {
         return <div className='article-row-item' style={styles.root} onClick={() => onRowClick(data)}>
             {/* 头部 */}
-            <div className='f-r j-between'>
+            <div className='f-r j-between a-center'>
                 <div className='f-r a-center'>
                     {/* 头像 */}
                     <img className='user-img' src={data?.author?.image || defaultImg} alt="用户头像" style={styles.userImg} />
@@ -68,7 +71,7 @@ export default function ArticleList({ query, offset }: Props) {
                     </div>
                 </div>
                 {/* 关注按钮 */}
-                <div>关注</div>
+                <div style={styles.guanzhu}>关注</div>
             </div>
             {/* 标题 */}
             <div className='title'>
@@ -84,12 +87,21 @@ export default function ArticleList({ query, offset }: Props) {
                 <FavouriteBtn {...data} />
             </div>
         </div>
+    }, [styles])
+
+    const renderSeparator = useMemo(() => (sectionID: any, rowID: any) => {
+        return <div
+            key={`${sectionID}-${rowID}`}
+            className='article-list-gap'
+        />
     }, [])
+
     return <div>
         <PullList
             offset={offset}
             getDataMethod={getData}
             renderRow={renderRow}
+            renderSeparator={renderSeparator}
             contentContainerStyle={styles.contentContainerStyle}
         />
     </div>

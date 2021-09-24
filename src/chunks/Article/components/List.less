@@ -2,31 +2,34 @@
 .article-detail {
     .header {
         font-size: 14px;
-        color    : #393C43;
+        color    : @fc-text;
     }
 
     .secd {
         font-size  : 12px;
         font-weight: 400;
-        color      : rgba(57, 60, 67, 0.56);
+        color      : @fc-text;
     }
 
     .title {
         margin     : 16px 0;
         font-size  : 16px;
-        color      : #393C43;
+        color      : @fc-header;
         font-weight: 600;
     }
 
     .content {
 
-        font-size: 14px;
-        color    : rgba(57, 60, 67, 0.56);
-        ;
+        font-size         : 14px;
+        color             : @fc-text;
         word-break        : break-all;
         overflow          : hidden;
         display           : -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
     }
+}
+
+.article-list-gap {
+    height: 15px
 }

@@ -5,12 +5,12 @@ interface Window {
     CONSTANTS: any
 }
 
-type JssSheet = {
+interface JssSheet {
     [key: string]: React.CSSProperties
 }
 
-type Theme = {
-    bg?: {
+interface Theme {
+    bg: {
         pri?: string,
         sec?: string
     },

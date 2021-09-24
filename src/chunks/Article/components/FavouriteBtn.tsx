@@ -2,8 +2,23 @@ import React, { useState, useCallback, useRef } from 'react'
 import { ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import { Toast } from 'antd-mobile'
 import * as ArticleAPI from '@/services/Articles'
+import useStyle from '@/theme/useThemeStyle'
+
+const styleSheet = (theme: Theme): JssSheet => ({
+    favouriteStyle: {
+        fontSize: '14px',
+        color: theme.fc.active
+    },
+    unFavouriteStyle: {
+        fontSize: '14px',
+        color: theme.fc.desc
+    }
+})
 
 export default function Favourite({ favoritesCount = 0, favorited = false, slug = '' }) {
+
+    const styles = useStyle(styleSheet)
+
     const [count, setCount] = useState(favoritesCount)
     const [isFav, setIsFav] = useState(favorited)
 
@@ -25,8 +40,5 @@ export default function Favourite({ favoritesCount = 0, favorited = false, slug 
         }
     }, [isFav])
 
-    return <div onClick={onClick} style={{
-        color: isFav ? 'red' : 'rgba(57, 60, 67, 0.56)',
-        fontSize: '14px'
-    }}><ThumbUpAltIcon style={{ fontSize: '14px' }} /> {favoritesCount}</div>
+    return <div onClick={onClick} style={isFav ? styles.favouriteStyle : styles.unFavouriteStyle}><ThumbUpAltIcon style={{ fontSize: '14px' }} /> {favoritesCount}</div>
 }

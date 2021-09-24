@@ -18,15 +18,13 @@ export const themeChange = function (theme: 'light' | 'dark') {
     $EB.emit(eventTypes.THEME_CHANGE, theme)
 }
 
-export default function useStyle(style: JssSheet | ((theme: Theme) => JssSheet)) {
+// useStyle hook
+export default function useStyle(style: any) {
 
     const theme = useTheme()
 
     return useMemo(() => {
-        if (Object.prototype.toString.call(style) === '[object Function]') {
-            style = (style as ((theme: Theme) => JssSheet))(theme)
-        }
-        return style
+        return style(theme)
     }, [theme])
 }
 

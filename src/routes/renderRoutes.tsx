@@ -63,7 +63,6 @@ function withKeepAlive(render: (props: any) => React.ReactNode) {
 function ForwardAliveComponent(props: any) {
     const name = useMemo(() => {
         const url = props.match.url
-        console.log(url, '重启')
         return url
     }, [])
     useForwardActivationControl({ name, match: props.match })
