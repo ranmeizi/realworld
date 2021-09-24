@@ -9,7 +9,7 @@ type ThemeState = {
 }
 
 const initialState: ThemeState = {
-    theme: 'light',
+    theme: 'dark',
     appTab: '',
     hideTabbar: false,
     hideHeader: false,
@@ -18,7 +18,6 @@ const initialState: ThemeState = {
 export default function reducer(state: ThemeState = initialState, action: AnyAction) {
     switch (action.type) {
         case TYPES.SET_THEME:
-            document.body.className = 'rvt-body-' + action.data
             return {
                 ...state,
                 theme: action.data

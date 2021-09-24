@@ -8,7 +8,7 @@ function User({
     theme,
     setTheme
 }: any) {
-    return <div className='rvt-tabview' style={{ backgroundColor: 'yellow' }} >
+    return <div className='rvt-tabview' >
         <input type="text" />
         <List.Item
             extra={<Switch
