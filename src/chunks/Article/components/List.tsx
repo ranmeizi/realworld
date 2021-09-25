@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom'
 import { Comment as CommentIcon, ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import FavouriteBtn from './FavouriteBtn'
 import { Toast } from 'antd-mobile'
-import useStyle from '@/theme/useThemeStyle'
+import { makeStyles } from '@/theme/useThemeStyle'
 
 type Props = {
     offset?: boolean,
     query: ArticleAPI.GetArticlesParam
 }
 
-const styleSheet = (theme: Theme): JssSheet => ({
+const useStyle = makeStyles((theme: Theme) => ({
     contentContainerStyle: {
         boxSizing: 'border-box'
     },
@@ -34,15 +34,14 @@ const styleSheet = (theme: Theme): JssSheet => ({
         color: theme.fc.desc,
         marginRight: '40px'
     },
-    icon2: {},
     guanzhu: {
         color: theme.fc.header
     }
-})
+}))
+
 
 export default function ArticleList({ query, offset }: Props) {
-
-    const styles = useStyle(styleSheet)
+    const styles = useStyle()
 
     const history = useHistory()
 

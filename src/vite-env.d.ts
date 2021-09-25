@@ -5,8 +5,10 @@ interface Window {
     CONSTANTS: any
 }
 
-interface JssSheet {
-    [key: string]: React.CSSProperties
+// 定义全局的类型和一些常用范型
+
+type JssSheet<T extends string> = {
+    [k in T]: React.CSSProperties
 }
 
 interface Theme {

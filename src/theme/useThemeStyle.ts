@@ -18,15 +18,6 @@ export const themeChange = function (theme: 'light' | 'dark') {
     $EB.emit(eventTypes.THEME_CHANGE, theme)
 }
 
-// useStyle hook
-export default function useStyle(style: any) {
-
-    const theme = useTheme()
-
-    return useMemo(() => {
-        return style(theme)
-    }, [theme])
-}
 
 export function useTheme() {
     const [theme, setTheme] = useState<'light' | 'dark'>(defaultTheme)
@@ -35,4 +26,17 @@ export function useTheme() {
         return () => $EB.un(eventTypes.THEME_CHANGE, setTheme)
     }, [])
     return themes[theme]
+}
+
+export function makeStyles<
+    K extends string = string
+>(style: (theme: Theme) => JssSheet<K>) {
+    return function useStyle() {
+
+        const theme = useTheme()
+
+        return useMemo(() => {
+            return style(theme)
+        }, [theme])
+    }
 }
