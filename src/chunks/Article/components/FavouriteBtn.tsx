@@ -2,9 +2,9 @@ import React, { useState, useCallback, useRef } from 'react'
 import { ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import { Toast } from 'antd-mobile'
 import * as ArticleAPI from '@/services/Articles'
-import useStyle from '@/theme/useThemeStyle'
+import { makeStyles } from '@/theme/useThemeStyle'
 
-const styleSheet = (theme: Theme): JssSheet => ({
+const useStyle = makeStyles((theme: Theme) => ({
     favouriteStyle: {
         fontSize: '14px',
         color: theme.fc.active
@@ -13,11 +13,11 @@ const styleSheet = (theme: Theme): JssSheet => ({
         fontSize: '14px',
         color: theme.fc.desc
     }
-})
+}))
 
 export default function Favourite({ favoritesCount = 0, favorited = false, slug = '' }) {
 
-    const styles = useStyle(styleSheet)
+    const styles = useStyle()
 
     const [count, setCount] = useState(favoritesCount)
     const [isFav, setIsFav] = useState(favorited)
