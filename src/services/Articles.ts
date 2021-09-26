@@ -8,14 +8,15 @@ export interface GetArticlesParam {
     pageNum?: number // Offset/skip number of articles (default is 0)
 }
 
-export type Author = {
+export interface Author {
     username: string,
     bio: string,
     image: string,
     following: boolean
 }
 
-export type Article = {
+// 文章数据
+export interface Article {
     slug: string,
     title: string,
     description: string,
@@ -26,6 +27,15 @@ export type Article = {
     favorited: boolean,
     favoritesCount: number,
     author: Author,
+}
+
+// 评论数据
+export interface Comment {
+    id: number,
+    createdAt: string,
+    updatedAt: string,
+    body: string,
+    author: Author
 }
 
 /**
@@ -92,5 +102,14 @@ export async function unfavourite({ slug }: any): Promise<number> {
         return 1
     } catch (e) {
         return -1
+    }
+}
+
+export async function getComments({ slug }: any): Promise<Comment[]> {
+    try {
+        const res = await RW.get(`​/articles​/${slug}​/comments`)
+        return res.data.comments || []
+    } catch {
+        return []
     }
 }

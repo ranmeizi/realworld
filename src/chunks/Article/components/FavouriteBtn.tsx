@@ -40,5 +40,11 @@ export default function Favourite({ favoritesCount = 0, favorited = false, slug 
         }
     }, [isFav])
 
-    return <div onClick={onClick} style={isFav ? styles.favouriteStyle : styles.unFavouriteStyle}><ThumbUpAltIcon style={{ fontSize: '14px' }} /> {favoritesCount}</div>
+    return <div
+        className='f-r a-center'
+        onClick={onClick}
+        style={isFav ? styles.favouriteStyle : styles.unFavouriteStyle}
+    >
+        <ThumbUpAltIcon style={{ fontSize: '14px', marginRight: '4px' }} /> {favoritesCount}
+    </div>
 }

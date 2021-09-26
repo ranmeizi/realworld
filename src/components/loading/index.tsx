@@ -2,15 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Icon } from 'antd-mobile'
 
-const style: JssSheet = {
+const style: JssSheet<string> = {
     root: {
-        height: `${window.innerHeight - 95}px`,
+        height: `${window.innerHeight - 76}px`,
         width: '100vw',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'fixed',
-        top: '45px'
+        top: '36px'
     }
 }
 
