@@ -21,5 +21,6 @@ interface Theme {
         text?: string,
         desc?: string,
         active?: string
-    }
+    },
+    transition: string
 }

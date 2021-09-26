@@ -1,4 +1,6 @@
 .rvt-app {
+    background-color: @bg-sec;
+    transition      : @transition;
 
     .am-tab-bar {
         position: fixed;
@@ -8,19 +10,29 @@
         z-index : 3000;
 
         .am-tab-bar-bar {
-            transition: 0.3s;
+            transition: @transition;
+
+            &::before {
+                background-color: @bg-sec;
+                transition      : @transition;
+            }
         }
     }
 
     .am-navbar {
-        position: fixed;
-        top     : 0;
-        width   : 100%;
-        z-index : 3000;
+        position        : fixed;
+        top             : 0;
+        width           : 100%;
+        z-index         : 3000;
+        background-color: @bg-pri;
+        color           : @fc-desc;
     }
 
-    background-color: @bg-sec;
-    transition      : 0.3s;
+    .am-list-body {
+        &::before {
+            background-color: @bg-sec;
+        }
+    }
 }
 
 .ka-wrapper {
