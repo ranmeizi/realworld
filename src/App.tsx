@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router } from "react-router-dom";
 import routes from './routes'
 import { renderRoutes } from './routes/renderRoutes'
 import vhCheck from 'vh-check'
+import { store } from '@/redux/store'
+import { themeChange } from '@/theme/useThemeStyle'
 
 vhCheck()
 
@@ -12,7 +14,18 @@ const style = {
   }
 }
 
+// useStyle初始化
+function themeInit() {
+  const theme = store.getState().app.theme
+  themeChange(theme)
+  document.body.className = 'rvt-body-' + theme
+}
+
 function App() {
+  useEffect(() => {
+    themeInit()
+  }, [])
+
   return <div className='rvt-app' style={style.app}>
     <Router>
       {

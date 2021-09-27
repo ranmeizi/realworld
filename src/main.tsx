@@ -4,17 +4,18 @@ import './assets/css/index.less'
 import App from './App'
 import { Provider } from 'react-redux'
 import { AliveScope } from 'react-activation'
-import store from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './redux/store'
 import './base.less'
 
 ReactDOM.render(
   <Provider store={store}>
-    <AliveScope>
-      <App />
-    </AliveScope>
+    <PersistGate loading={null} persistor={persistor}>
+      <AliveScope>
+        <App />
+      </AliveScope>
+    </PersistGate>
   </Provider>
   ,
   document.getElementById('root')
 )
-
-document.body.className = 'rvt-body-' + store.getState().app.theme

@@ -77,7 +77,7 @@ export default function ArticleList({ query, offset }: Props) {
                 {data.title || '我是一个标题'}
             </div>
             {/* 正文 */}
-            <div className='content'>
+            <div className='content hidecontent'>
                 {data.description || defaultContent}
             </div>
             {/* 评论/点赞 */}

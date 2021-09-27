@@ -11,16 +11,13 @@ const themes = {
     'dark': dark
 }
 
-const defaultTheme = store.getState().app.theme
-
 export const themeChange = function (theme: 'light' | 'dark') {
-    console.log('emit ???')
     $EB.emit(eventTypes.THEME_CHANGE, theme)
 }
 
 
 export function useTheme() {
-    const [theme, setTheme] = useState<'light' | 'dark'>(defaultTheme)
+    const [theme, setTheme] = useState<'light' | 'dark'>(store.getState().app.theme)
     useEffect(() => {
         $EB.on(eventTypes.THEME_CHANGE, setTheme)
         return () => $EB.un(eventTypes.THEME_CHANGE, setTheme)
