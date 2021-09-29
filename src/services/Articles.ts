@@ -113,3 +113,12 @@ export async function getComments({ slug }: any): Promise<Comment[]> {
         return []
     }
 }
+
+export async function getTags(): Promise<string[]> {
+    try {
+        const res = await RW.get('/tags')
+        return res.data.tags
+    } catch (e) {
+        return []
+    }
+}

@@ -37,6 +37,87 @@
             background-color: @bg-sec;
         }
     }
+
+    .am-tabs-default-bar {
+        background-color: @bg-pri  !important;
+
+        .am-tabs-default-bar-prevpage,
+        .am-tabs-default-bar-nextpage {
+            display: none;
+        }
+
+        .am-tabs-default-bar-tab {
+            &::after {
+                background-color: transparent !important;
+            }
+        }
+
+        .am-tabs-default-bar-tab-active {
+            color: @fc-active;
+        }
+
+        .am-tabs-default-bar-underline {
+            border          : 1px @fc-active solid;
+            transform-origin: center;
+            transform       : scaleX(0.4);
+        }
+    }
+
+    .am-list-item {
+        background-color: @bg-pri;
+
+        .am-list-content {
+            color    : @fc-text;
+            font-size: 14px;
+        }
+    }
+
+    .am-switch {
+
+        right: 8px;
+
+        .checkbox {
+            height          : 14px;
+            width           : 32px;
+            background-color: @bg-sec;
+
+            &::before {
+                width           : 32px;
+                height          : 16px;
+                top             : 0px;
+                left            : -1px;
+                background-color: rgba(77, 77, 77, 0.1);
+            }
+
+            &::after {
+                height: 18px;
+                width : 18px;
+                top   : -2px;
+                left  : -6px;
+            }
+        }
+
+        input[type="checkbox"]:checked+.checkbox {
+
+            background-color: @fc-active;
+
+            &::before {
+                transform       : scale(1);
+                background-color: rgba(77, 77, 77, 0.7);
+            }
+
+            &::after {
+                background-color: @fc-active;
+            }
+        }
+    }
+
+    .divider {
+        height          : 1px;
+        width           : 100%;
+        background-color: @bg-sec;
+        margin          : 16px 0;
+    }
 }
 
 .ka-wrapper {
