@@ -45,10 +45,21 @@ const routes: MyRoute[] = [
                 isCache: true,
                 isTransition: true,
                 component: lazy(() => ArticleModule.get('Posts'))
-            }, {
+            },
+            {
                 path: '/test',
                 component: Test
-            }
+            },
+            {
+                path: '/realworld-login',
+                isTransition: true,
+                component: lazy(() => UserModule.get('RealWorldLogin'))
+            },
+            {
+                path: '/register',
+                isTransition: true,
+                component: lazy(() => UserModule.get('Register'))
+            },
         ],
     }
 ]

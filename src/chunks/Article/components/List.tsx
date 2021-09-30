@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useRef, useEffect } from 'react'
 import * as ArticleAPI from '@/services/Articles'
 import PullList from '@/components/pull-list'
-import defaultImg from '@/assets/images/default.jpeg'
 import { useHistory } from 'react-router-dom'
-import { Comment as CommentIcon, ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
+import { Comment as CommentIcon } from '@material-ui/icons'
 import FavouriteBtn from './FavouriteBtn'
 import { Toast } from 'antd-mobile'
 import { makeStyles } from '@/theme/useThemeStyle'
+import ErrImg from '@/components/error-image'
 
 type Props = {
     offset?: boolean,
@@ -43,12 +43,18 @@ const useStyle = makeStyles((theme: Theme) => ({
 export default function ArticleList({ query, offset }: Props) {
     const styles = useStyle()
 
+    const formRef = useRef<any>(null)
+
     const history = useHistory()
+
+    useEffect(() => {
+        formRef.current.getData(0)
+    }, [query])
 
     const getData = useCallback(async pagination => await ArticleAPI.getArticles({
         ...pagination,
         ...query
-    }), [])
+    }), [query])
 
     const onRowClick = useCallback((data: ArticleAPI.Article) => {
         if (!data.slug) {
@@ -63,7 +69,7 @@ export default function ArticleList({ query, offset }: Props) {
             <div className='f-r j-between a-center'>
                 <div className='f-r a-center'>
                     {/* 头像 */}
-                    <img className='user-img' src={data?.author?.image || defaultImg} alt="用户头像" style={styles.userImg} />
+                    <ErrImg className='user-img' src={data?.author?.image} style={styles.userImg} />
                     <div>
                         <div className='header'>{data?.author?.username || '示例昵称'}</div>
                         <div className='secd'>{data.updateAt || '1小时前'}</div>
@@ -97,6 +103,7 @@ export default function ArticleList({ query, offset }: Props) {
 
     return <div>
         <PullList
+            apiRef={formRef}
             offset={offset}
             getDataMethod={getData}
             renderRow={renderRow}

@@ -1,7 +1,7 @@
 import RW from '@/utils/Request/rw'
 
 export interface GetArticlesParam {
-    tag?: string, // Filter by tag
+    tag?: string|null, // Filter by tag
     author?: string, // Filter by author (username)
     favorited?: string, // Filter by favorites of a user (username)
     pageSize?: number, // Limit number of articles returned (default is 20)

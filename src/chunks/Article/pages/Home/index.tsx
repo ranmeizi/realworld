@@ -20,17 +20,23 @@ const useStyle = makeStyles((theme) => ({
 
 function Home() {
     const [tags, setTags] = useState<string[]>([])
-    const [query, setQuery] = useState({})
+    const [query, setQuery] = useState<ArticleAPI.GetArticlesParam>({})
     useEffect(() => {
         async function getData() {
             setTags(await ArticleAPI.getTags())
         }
         getData()
     }, [])
+
+    const onTabChange = useCallback(({ title }) => {
+        const tag = title === '全部' ? null : title
+        setQuery({ ...query, tag })
+    }, [query])
+
     return <div className='rvt-tabview'>
         {/* tag 切换 */}
         <div className='am-navbar'>
-            <TagTabs tags={tags} onTabChange={() => { }} />
+            <TagTabs tags={tags} onTabChange={onTabChange} />
         </div>
         {/* 文章列表 */}
         <div style={{ paddingTop: '36px', boxSizing: 'border-box' }}>
@@ -51,8 +57,7 @@ function TagTabs({ tags, onTabChange }: any) {
     }, [tags])
     return <Tabs tabs={tabs}
         tabBarTextStyle={styles.tabBarTextStyle}
-        initialPage={1}
-        onChange={(tab, index) => { console.log('onChange', index, tab); }}
-        onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+        initialPage={0}
+        onChange={onTabChange}
     ></Tabs>
 }

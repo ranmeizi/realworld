@@ -4,6 +4,7 @@ import NavBar from '@/layouts/NavBar'
 import defaultImg from '@/assets/images/default.jpeg'
 import { makeStyles } from '@/theme/useThemeStyle'
 import UnderBar from '../../components/UnderBar'
+import ErrImg from '@/components/error-image'
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -57,7 +58,7 @@ export default function Posts(props: any) {
                     <div className='f-r j-between a-center'>
                         <div className='f-r a-center'>
                             {/* 头像 */}
-                            <img className='user-img' src={postData?.author?.image || defaultImg} alt="用户头像" style={styles.userImg} />
+                            <ErrImg className='user-img' src={postData?.author?.image} style={styles.userImg} />
                             <div>
                                 <div className='header'>{postData?.author?.username || '示例昵称'}</div>
                                 <div className='secd'>{postData.updateAt || '1小时前'}</div>

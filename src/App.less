@@ -28,6 +28,11 @@
         background-color: @bg-pri;
         color           : @fc-desc;
         box-shadow      : 0px 0px 5px 2px @bg-sec;
+
+        .am-navbar-title{
+            color: @fc-header;
+            font-size: 14px;
+        }
     }
 
     .am-list-body {
@@ -118,6 +123,49 @@
         background-color: @bg-sec;
         margin          : 16px 0;
     }
+}
+
+.am-modal-content {
+    background-color: @bg-pri;
+
+    .am-modal-title {
+        font-size: 16px;
+        color    : @fc-header;
+    }
+
+    .am-modal-alert-content {
+        font-size: 14px;
+        color    : @fc-text;
+    }
+
+    .am-modal-button-group-normal {
+        &::before {
+            background-color: @bg-sec;
+        }
+
+        .am-modal-button {
+            font-size: 14px;
+            color    : @fc-active;
+
+            &.am-modal-button-active {
+                transition      : @transition;
+                background-color: @fc-active;
+                opacity         : 0.5;
+                color           : #fff;
+            }
+
+            &:first-child {
+                color: @fc-desc;
+            }
+
+            &:last-child {
+                &::before {
+                    background-color: @bg-sec;
+                }
+            }
+        }
+    }
+
 }
 
 .ka-wrapper {

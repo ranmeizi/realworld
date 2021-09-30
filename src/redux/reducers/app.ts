@@ -14,7 +14,7 @@ type ThemeState = {
     appTab: string,
     hideTabbar: boolean,
     hideHeader: boolean,
-    uinfo: UInfo | {}
+    uinfo: Partial<UInfo>
 }
 
 const initialState: ThemeState = {

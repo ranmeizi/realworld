@@ -10,6 +10,7 @@ import {
     DescriptionTwoTone as DescriptionTwoToneIcon,
     GradeTwoTone as GradeTwoToneIcon
 } from '@material-ui/icons';
+import { ClickAuthDiv } from '@/components/auth';
 import defaultImg from '@/assets/images/default.jpeg'
 const useStyle = makeStyles(theme => ({
     root: {
@@ -34,7 +35,7 @@ const useStyle = makeStyles(theme => ({
     },
     headerIcon: {
         color: '#fff',
-        fontSize: '16px'
+        fontSize: '18px'
     },
     card: {
         position: 'relative',
@@ -67,13 +68,12 @@ function Mine({
     theme,
     setTheme
 }: any) {
-    console.log('??', uinfo)
     const styles = useStyle()
     return <div className='f-c'>
         {/* 我的页面特殊header */}
         <div style={styles.headerBg}></div>
         <div className='f-r j-between a-center' style={styles.header}>
-            <GitHubIcon style={styles.headerIcon} />
+            <GitHubIcon style={styles.headerIcon} onClick={openGitee} />
             <EditIcon style={styles.headerIcon} />
         </div>
         {/* 个人页卡片 */}
@@ -90,15 +90,15 @@ function Mine({
             <div className='divider'></div>
             <div className='f-r'>
                 {/* 我的文章 */}
-                <div style={styles.articleBtn} className='f-c a-center'>
+                <ClickAuthDiv style={styles.articleBtn} className='f-c a-center'>
                     <DescriptionTwoToneIcon style={styles.red} />
                     <div>我的文章</div>
-                </div>
+                </ClickAuthDiv>
                 {/* 我的收藏 */}
-                <div style={styles.articleBtn} className='f-c a-center'>
+                <ClickAuthDiv style={styles.articleBtn} className='f-c a-center'>
                     <GradeTwoToneIcon style={styles.yellow} />
                     <div>我的收藏</div>
-                </div>
+                </ClickAuthDiv>
             </div>
         </div>
         {/* 功能列表卡片 */}
@@ -127,5 +127,9 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     setTheme: AppActions.setTheme
 }, dispatch)
+
+function openGitee() {
+    window.open('https://gitee.com/boboanzuiniubi/react-vite-template', '_blank')
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine)
