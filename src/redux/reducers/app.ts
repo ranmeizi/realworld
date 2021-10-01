@@ -32,6 +32,16 @@ export default function reducer(state: ThemeState = initialState, action: AnyAct
                 ...state,
                 theme: action.data
             }
+        case TYPES.SET_UINFO:
+            return {
+                ...state,
+                uinfo: action.data
+            }
+        case TYPES.CLEAR_UINFO:
+            return {
+                ...state,
+                uinfo: {}
+            }
         default: return state
     }
 }

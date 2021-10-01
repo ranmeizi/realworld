@@ -60,6 +60,11 @@ const routes: MyRoute[] = [
                 isTransition: true,
                 component: lazy(() => UserModule.get('Register'))
             },
+            {
+                path: '/login',
+                isTransition: true,
+                component: lazy(() => UserModule.get('Login'))
+            },
         ],
     }
 ]

@@ -20,7 +20,8 @@ const useStyle = makeStyles(theme => ({
         textAlign: 'center'
     },
     img: {
-        flex: 1
+        flex: 1,
+        objectFit: 'contain'
     },
     a: {
         color: theme.fc.active,
@@ -59,7 +60,7 @@ export default function RealWorldLogin() {
             {/* 登陆 */}
             <div style={styles.login} className='f-r j-center'>
                 <span>已有realworld账号？</span>
-                <a style={styles.a} href="">去登陆</a>
+                <a style={styles.a} onClick={() => history.push('/login')}>去登陆</a>
             </div>
         </div>
     </div>

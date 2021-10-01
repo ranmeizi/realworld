@@ -1,6 +1,7 @@
 import axios from 'axios'
 import hosts from '@/config/hosts'
 import LoadingStack from '../LoadingStack'
+import { store } from '@/redux/store'
 
 const baseURL = hosts.realWorldServer
 
@@ -12,6 +13,10 @@ const instance = axios.create({
 // 请求拦截
 instance.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
+
+    // 是否应该携带token？
+    const token = store.getState().app.uinfo.token
+    token && (config.headers.authorization = `Token ${token}`)
 
     LoadingStack.whenRequest(config)
 

@@ -29,8 +29,8 @@
         color           : @fc-desc;
         box-shadow      : 0px 0px 5px 2px @bg-sec;
 
-        .am-navbar-title{
-            color: @fc-header;
+        .am-navbar-title {
+            color    : @fc-header;
             font-size: 14px;
         }
     }
@@ -65,6 +65,15 @@
             border          : 1px @fc-active solid;
             transform-origin: center;
             transform       : scaleX(0.4);
+        }
+    }
+
+    input {
+        color      : @fc-text  !important;
+        caret-color: @fc-active;
+
+        &::placeholder {
+            color: @fc-desc;
         }
     }
 

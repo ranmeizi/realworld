@@ -26,6 +26,7 @@ function TransitionRoutes(props: any) {
     // 是否需要过渡动画
     const transitionKey = useMemo(() => {
         const route = routes.find(r => matchPath(location.pathname, r))
+        console.log(route?.isTransition, route?.path)
         return route?.isTransition
             ? route.path
             : 'notransition'

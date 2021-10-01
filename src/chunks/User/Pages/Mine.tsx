@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Switch } from 'antd-mobile';
+import { List, Switch, Modal, Toast } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as AppActions from '@/redux/actions/app'
@@ -8,10 +8,12 @@ import {
     GitHub as GitHubIcon,
     Edit as EditIcon,
     DescriptionTwoTone as DescriptionTwoToneIcon,
-    GradeTwoTone as GradeTwoToneIcon
+    GradeTwoTone as GradeTwoToneIcon,
+    KeyboardArrowRight as KeyboardArrowRightIcon
 } from '@material-ui/icons';
 import { ClickAuthDiv } from '@/components/auth';
 import defaultImg from '@/assets/images/default.jpeg'
+
 const useStyle = makeStyles(theme => ({
     root: {
 
@@ -66,9 +68,24 @@ const useStyle = makeStyles(theme => ({
 function Mine({
     uinfo,
     theme,
-    setTheme
+    setTheme,
+    clearUinfo
 }: any) {
     const styles = useStyle()
+
+
+    function logout() {
+        Modal.alert('退出登陆', '确定要退出登陆吗', [
+            { text: '算了', onPress: () => console.log('cancel'), style: 'default' },
+            {
+                text: '确定', onPress: () => {
+                    clearUinfo()
+                    Toast.info('您已登出')
+                }
+            }
+        ])
+    }
+
     return <div className='f-c'>
         {/* 我的页面特殊header */}
         <div style={styles.headerBg}></div>
@@ -115,6 +132,12 @@ function Mine({
                     }}
                 />}
             >深色模式</List.Item>
+            {
+                uinfo.token
+                    ? <List.Item extra={<KeyboardArrowRightIcon />} onClick={logout}>退出当前账号</List.Item>
+                    : null
+            }
+
         </div>
     </div>
 }
@@ -125,7 +148,8 @@ const mapStateToProps = (state: any) => ({
 })
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-    setTheme: AppActions.setTheme
+    setTheme: AppActions.setTheme,
+    clearUinfo: AppActions.clearUinfo
 }, dispatch)
 
 function openGitee() {
