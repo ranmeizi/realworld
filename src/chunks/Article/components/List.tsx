@@ -67,7 +67,10 @@ export default function ArticleList({ query, offset }: Props) {
         return <div className='article-row-item' style={styles.root} onClick={() => onRowClick(data)}>
             {/* 头部 */}
             <div className='f-r j-between a-center'>
-                <div className='f-r a-center'>
+                <div className='f-r a-center' onClick={(e)=>{
+                    e.stopPropagation()
+                    history.push(`/profile/${data?.author?.username}`)
+                }}>
                     {/* 头像 */}
                     <ErrImg className='user-img' src={data?.author?.image} style={styles.userImg} />
                     <div>

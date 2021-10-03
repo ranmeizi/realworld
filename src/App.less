@@ -52,6 +52,7 @@
         }
 
         .am-tabs-default-bar-tab {
+            color: @fc-text;
             &::after {
                 background-color: transparent !important;
             }
@@ -78,11 +79,20 @@
     }
 
     .am-list-item {
+        padding-right   : 15px;
         background-color: @bg-pri;
 
         .am-list-content {
             color    : @fc-text;
             font-size: 14px;
+        }
+
+        .am-list-line {
+            padding-right: 0;
+
+            &::after {
+                background-color: @bg-sec !important;
+            }
         }
     }
 

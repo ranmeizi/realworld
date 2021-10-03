@@ -3,6 +3,7 @@ import { List, Switch, Modal, Toast } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as AppActions from '@/redux/actions/app'
+import { useHistory } from 'react-router';
 import { makeStyles } from '@/theme/useThemeStyle';
 import {
     GitHub as GitHubIcon,
@@ -73,6 +74,7 @@ function Mine({
 }: any) {
     const styles = useStyle()
 
+    const history = useHistory()
 
     function logout() {
         Modal.alert('退出登陆', '确定要退出登陆吗', [
@@ -95,7 +97,7 @@ function Mine({
         </div>
         {/* 个人页卡片 */}
         <div className='mine-card ' style={styles.card}>
-            <div className='f-r a-center'>
+            <ClickAuthDiv className='f-r a-center' onClick={() => history.push(`/profile/${uinfo.username}`)}>
                 {/* 头像 */}
                 <img className='user-img' style={styles.avatar} src={uinfo.image || defaultImg} />
                 {/* 名 和 啥的 */}
@@ -103,7 +105,7 @@ function Mine({
                     <div className='header'>{uinfo.username || '点击登录'}</div>
                     <div className='secd'>real world demo 的神</div>
                 </div>
-            </div>
+            </ClickAuthDiv>
             <div className='divider'></div>
             <div className='f-r'>
                 {/* 我的文章 */}

@@ -65,6 +65,11 @@ const routes: MyRoute[] = [
                 isTransition: true,
                 component: lazy(() => UserModule.get('Login'))
             },
+            {
+                path: '/profile/:username',
+                isTransition: true,
+                component: lazy(() => ArticleModule.get('Profile'))
+            }
         ],
     }
 ]

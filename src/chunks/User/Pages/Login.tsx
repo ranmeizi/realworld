@@ -52,11 +52,7 @@ function Login({ form }: any) {
     const login = useCallback(async () => {
         try {
             const data = await form.validateFields()
-            const user = await UserAPI.login(data as UserAPI.LoginParams)
-            // 如果有user 那么登陆成功,异常让service给出提示
-            if (Object.keys(user).length > 0) {
-
-            }
+            await UserAPI.login(data as UserAPI.LoginParams)
         } catch (e: any) {
             if (e.errors) {
                 const errmsg = Object.values(e.errors).map((field: any) => {

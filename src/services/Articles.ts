@@ -1,7 +1,7 @@
 import RW from '@/utils/Request/rw'
 
 export interface GetArticlesParam {
-    tag?: string|null, // Filter by tag
+    tag?: string | null, // Filter by tag
     author?: string, // Filter by author (username)
     favorited?: string, // Filter by favorites of a user (username)
     pageSize?: number, // Limit number of articles returned (default is 20)
@@ -53,16 +53,16 @@ export async function getArticles({
 }> {
     try {
         const res = await RW.get('/articles', {
-            params: { tag, author, favorited, limit, offset }
+            params: { tag, author, favorited, limit, offset },
+            loading: true
         })
         return {
             list: res.data.articles,
             total: res.data.articlesCount
         }
     } catch (e) {
-        console.log(e)
         return {
-            list: Array(20).fill(1),
+            list: [],
             total: 0
         }
     }
@@ -72,6 +72,7 @@ export interface GetArticleDetailParam {
     slug: string // Slug of the article to get
 }
 
+// 获取文章详情
 export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise<Article | Record<string, unknown>> {
     try {
         const res = await RW.get(`/articles/${slug}`, { loading: true })
@@ -81,6 +82,7 @@ export async function getArticleDetail({ slug }: GetArticleDetailParam): Promise
     }
 }
 
+// 点赞接口
 export async function favourite({ slug }: any): Promise<number> {
     try {
         const res = await RW.post(`/articles/${slug}/favorite`, {}, { loading: true })
@@ -93,6 +95,7 @@ export async function favourite({ slug }: any): Promise<number> {
     }
 }
 
+// 取消点赞
 export async function unfavourite({ slug }: any): Promise<number> {
     try {
         const res = await RW.delete(`/articles/${slug}/favorite`, { loading: true })
@@ -105,6 +108,7 @@ export async function unfavourite({ slug }: any): Promise<number> {
     }
 }
 
+// 获取评论
 export async function getComments({ slug }: any): Promise<Comment[]> {
     try {
         const res = await RW.get(`​/articles​/${slug}​/comments`)
@@ -114,11 +118,49 @@ export async function getComments({ slug }: any): Promise<Comment[]> {
     }
 }
 
+// 获取标签
 export async function getTags(): Promise<string[]> {
     try {
         const res = await RW.get('/tags')
         return res.data.tags
     } catch (e) {
         return []
+    }
+}
+
+export type Profile = {
+    username: string,
+    bio: string,
+    image: string,
+    following: boolean
+}
+
+// 个人资料
+export async function getProfile({ username }: any): Promise<Profile | Record<string, undefined>> {
+    try {
+        const res = await RW.get(`/profiles/${username}`)
+        return res.data.profile
+    } catch (e) {
+        return {}
+    }
+}
+
+// 关注
+export async function follow({ username }: any) {
+    try {
+        const res = await RW.post(`/profiles/${username}/follow`)
+        return res.data.profile
+    } catch (e) {
+        return {}
+    }
+}
+
+// 取消关注
+export async function unfollow({ username }: any) {
+    try {
+        const res = await RW.delete(`/profiles/${username}/follow`)
+        return res.data.profile
+    } catch (e) {
+        return {}
     }
 }

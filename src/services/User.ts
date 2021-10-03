@@ -4,7 +4,7 @@ import { store } from '@/redux/store'
 import * as appAction from '@/redux/actions/app'
 
 export type User = {
-    name: string,
+    username: string,
     email: string,
     password: string,
     token: string,
@@ -13,7 +13,7 @@ export type User = {
 }
 
 export type LoginParams = Extract<User, 'email' | 'password'>
-export type RegisterParams = Extract<User, 'name' | 'email' | 'password'>
+export type RegisterParams = Extract<User, 'username' | 'email' | 'password'>
 
 // 登陆
 export async function login({
@@ -43,21 +43,34 @@ export async function login({
 
 // 注册
 export async function register({
-    name,
+    username,
     email,
     password
-}: RegisterParams): Promise<User | {}> {
+}: RegisterParams): Promise<number> {
     try {
         const res = await RW.post('/users', {
             user: {
-                name,
+                username,
                 email,
                 password
             }
-        })
-        return res.data.user
-    } catch (e) {
-        return {}
+        }, { loading: true })
+        if (res.data.user) {
+            Toast.info('注册成功', 3, function () {
+                // 清空history push到首页
+                history.go(history.length)
+                window.location.replace("/login")
+            })
+        }
+        return 1
+    } catch (e: any) {
+        if (e.response.data.errors) {
+            const errmsg = Object.entries(e.response.data.errors).reduce((msgList: string[], [key, value]) => {
+                return [...msgList, `${key}:${(value as string[]).join('')}`]
+            }, []).join('\n')
+            Toast.fail(errmsg)
+        }
+        return -1
     }
 }
 
@@ -73,7 +86,7 @@ export async function getCurUser(): Promise<User | {}> {
 
 // 获取个人页信息
 export async function updateCurUser({
-    name,
+    username,
     email,
     bio,
     image,
@@ -82,7 +95,7 @@ export async function updateCurUser({
     try {
         const res = await RW.put('/user', {
             user: {
-                name,
+                username,
                 email,
                 bio,
                 image,

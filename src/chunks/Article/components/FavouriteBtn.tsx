@@ -3,6 +3,7 @@ import { ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import { Toast } from 'antd-mobile'
 import * as ArticleAPI from '@/services/Articles'
 import { makeStyles } from '@/theme/useThemeStyle'
+import { ClickAuthDiv } from '@/components/auth'
 
 const useStyle = makeStyles((theme: Theme) => ({
     favouriteStyle: {
@@ -40,11 +41,11 @@ export default function Favourite({ favoritesCount = 0, favorited = false, slug 
         }
     }, [isFav])
 
-    return <div
+    return <ClickAuthDiv
         className='f-r a-center'
         onClick={onClick}
         style={isFav ? styles.favouriteStyle : styles.unFavouriteStyle}
     >
         <ThumbUpAltIcon style={{ fontSize: '14px', marginRight: '4px' }} /> {favoritesCount}
-    </div>
+    </ClickAuthDiv>
 }

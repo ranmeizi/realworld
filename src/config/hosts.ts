@@ -13,7 +13,7 @@ type ServerList = Record<keyof Servers, string>
 
 const config: Record<Envs, ServerList> = {
     DEVELOP: {
-        realWorldServer: 'https://conduit.productionready.io/api',
+        realWorldServer: 'https://api.realworld.io/api',
         testServer: '试一下',
     },
     TEST: {

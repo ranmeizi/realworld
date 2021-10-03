@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { makeStyles } from '@/theme/useThemeStyle'
 import NavBar from '@/layouts/NavBar'
-import { List, InputItem } from 'antd-mobile'
+import { List, InputItem, Toast } from 'antd-mobile'
 import { createForm } from 'rc-form'
 import { useHistory } from 'react-router'
+import * as UserAPI from '@/services/User'
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -47,6 +48,21 @@ function Register({ form }: any) {
     const styles = useStyle()
     const { getFieldProps } = form
     const history = useHistory()
+
+    const register = useCallback(async () => {
+        try {
+            const data = await form.validateFields()
+            await UserAPI.register(data as UserAPI.LoginParams)
+        } catch (e: any) {
+            if (e.errors) {
+                const errmsg = Object.values(e.errors).map((field: any) => {
+                    return field.errors.map((err: any) => err.message)
+                }).join('')
+                Toast.fail(errmsg)
+            }
+        }
+    }, [])
+
     return <div style={styles.root} className='login-page'>
         {/* 导航 */}
         <NavBar title='注册账号' />
@@ -54,12 +70,12 @@ function Register({ form }: any) {
             {/* 账号密码登陆 */}
             <div style={styles.title}>注册账号</div>
             <List >
-                <InputItem style={styles.input} {...getFieldProps('name', {})} placeholder="input your name" />
+                <InputItem style={styles.input} {...getFieldProps('username', {})} placeholder="input your username" />
                 <InputItem style={styles.input} {...getFieldProps('email', {})} placeholder="input your email" />
                 <InputItem style={styles.input} {...getFieldProps('password', {})} placeholder="input your password" />
             </List>
             {/* 登陆按钮 */}
-            <div style={styles.registBtn}>注册</div>
+            <div style={styles.registBtn} onClick={register}>注册</div>
             {/* 注册账号？ */}
             <div style={styles.login} className='f-r j-center'>
                 <span>已有账号？</span>
