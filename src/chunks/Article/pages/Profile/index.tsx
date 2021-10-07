@@ -1,14 +1,13 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Tabs } from 'antd-mobile'
 import { makeStyles } from '@/theme/useThemeStyle'
 import * as ArticleAPI from '@/services/Articles'
-import ArticleList from '../../components/List'
 import { ArrowBack as ArrowBackIcon } from '@material-ui/icons'
 import viteSvg from '@/favicon.svg'
 import maoboliImg from '@/assets/images/maoboli.jpeg'
 import { useHistory } from 'react-router'
 import ErrImg from '@/components/error-image'
+import { UserArticle } from '../MyArticles'
 
 const useStyle = makeStyles(theme => ({
     header: {
@@ -57,17 +56,6 @@ const useStyle = makeStyles(theme => ({
     bio: {
         fontSize: '14px',
         color: theme.fc.text
-    },
-    tabBarTextStyle: {
-        padding: 0,
-        height: '36px',
-        lineHeight: '36px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        display: 'block',
-        textAlign: 'center',
-        fontSize: '14px'
     }
 }))
 
@@ -75,10 +63,6 @@ export default function (props: any) {
     const styles = useStyle()
     const history = useHistory()
     const [profile, setProfile] = useState<ArticleAPI.Profile | Record<string, undefined>>({})
-    console.log(props.match.params.username)
-    const [query, setQuery] = useState<ArticleAPI.GetArticlesParam>({
-        author: props.match.params.username
-    })
 
     useEffect(() => {
         getData()
@@ -86,19 +70,6 @@ export default function (props: any) {
 
     const getData = useCallback(async () => {
         setProfile(await ArticleAPI.getProfile({ username: props.match.params.username }))
-    }, [])
-
-    const onTabChange = useCallback(({ title }) => {
-        // tab 改变 修改query
-        if (title === '我的文章') {
-            setQuery({
-                author: props.match.params.username
-            })
-        } else if (title === '我喜欢的文章') {
-            setQuery({
-                favorited: props.match.params.username
-            })
-        }
     }, [])
 
     return <div>
@@ -123,15 +94,6 @@ export default function (props: any) {
             </div>
         </div>
         {/* 文章 */}
-        <div>
-            {/* 我的文章 */}
-            {/* 点赞文章 */}
-            <Tabs tabs={[{ title: '我的文章' }, { title: '我喜欢的文章' },]}
-                tabBarTextStyle={styles.tabBarTextStyle}
-                initialPage={0}
-                onChange={onTabChange}
-            ></Tabs>
-            <ArticleList query={query} offset />
-        </div>
+        <UserArticle username={props.match.params.username}/>
     </div>
 }

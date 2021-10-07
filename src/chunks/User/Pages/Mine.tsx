@@ -88,6 +88,10 @@ function Mine({
         ])
     }
 
+    function navtoMyArticle(type: any) {
+        history.push(`/myArticles/${type}`)
+    }
+
     return <div className='f-c'>
         {/* 我的页面特殊header */}
         <div style={styles.headerBg}></div>
@@ -109,12 +113,12 @@ function Mine({
             <div className='divider'></div>
             <div className='f-r'>
                 {/* 我的文章 */}
-                <ClickAuthDiv style={styles.articleBtn} className='f-c a-center'>
+                <ClickAuthDiv onClick={() => navtoMyArticle(0)} style={styles.articleBtn} className='f-c a-center'>
                     <DescriptionTwoToneIcon style={styles.red} />
                     <div>我的文章</div>
                 </ClickAuthDiv>
                 {/* 我的收藏 */}
-                <ClickAuthDiv style={styles.articleBtn} className='f-c a-center'>
+                <ClickAuthDiv onClick={() => navtoMyArticle(1)} style={styles.articleBtn} className='f-c a-center'>
                     <GradeTwoToneIcon style={styles.yellow} />
                     <div>我的收藏</div>
                 </ClickAuthDiv>

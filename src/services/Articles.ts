@@ -111,10 +111,29 @@ export async function unfavourite({ slug }: any): Promise<number> {
 // 获取评论
 export async function getComments({ slug }: any): Promise<Comment[]> {
     try {
-        const res = await RW.get(`​/articles​/${slug}​/comments`)
+        const res = await RW.get(`/articles/${slug}/comments`)
         return res.data.comments || []
     } catch {
         return []
+    }
+}
+
+export type PublishCommentParams = {
+    body: string,
+    slug: string
+}
+
+export async function publishComment({ slug, body }: PublishCommentParams) {
+    try {
+        const res = await RW.post(`/articles/${slug}/comments`, {
+            comment: { body }
+        })
+        if (res.status !== 200) {
+            throw new Error('失败')
+        }
+        return 1
+    } catch (e) {
+        return -1
     }
 }
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import * as ArticleAPI from '@/services/Articles'
 import NavBar from '@/layouts/NavBar'
-import defaultImg from '@/assets/images/default.jpeg'
 import { makeStyles } from '@/theme/useThemeStyle'
 import UnderBar from '../../components/UnderBar'
 import ErrImg from '@/components/error-image'
+import Commonts from '../../components/Comment'
+import { useHistory } from 'react-router'
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -32,6 +33,8 @@ export default function Posts(props: any) {
 
     const styles = useStyle()
 
+    const history = useHistory()
+
     const [postData, setPostData] = useState<Partial<ArticleAPI.Article>>({})
     useEffect(() => {
         getData()
@@ -58,9 +61,15 @@ export default function Posts(props: any) {
                     <div className='f-r j-between a-center'>
                         <div className='f-r a-center'>
                             {/* 头像 */}
-                            <ErrImg className='user-img' src={postData?.author?.image} style={styles.userImg} />
+                            <ErrImg className='user-img' src={postData?.author?.image} style={styles.userImg} onClick={(e: any) => {
+                                e.stopPropagation()
+                                history.push(`/profile/${postData?.author?.username}`)
+                            }} />
                             <div>
-                                <div className='header'>{postData?.author?.username || '示例昵称'}</div>
+                                <div className='header' onClick={(e: any) => {
+                                    e.stopPropagation()
+                                    history.push(`/profile/${postData?.author?.username}`)
+                                }} >{postData?.author?.username || '示例昵称'}</div>
                                 <div className='secd'>{postData.updateAt || '1小时前'}</div>
                             </div>
                         </div>
@@ -73,9 +82,9 @@ export default function Posts(props: any) {
                     </div>
                     {/* 评论 */}
                     <div>
-
+                        <Commonts slug={props?.match?.params?.slug} />
                     </div>
-                    <UnderBar />
+                    <UnderBar data={postData} />
                 </div>
                 : null
         }

@@ -53,6 +53,7 @@
 
         .am-tabs-default-bar-tab {
             color: @fc-text;
+
             &::after {
                 background-color: transparent !important;
             }
@@ -91,7 +92,7 @@
             padding-right: 0;
 
             &::after {
-                background-color: @bg-sec !important;
+                background-color: @bg-sec  !important;
             }
         }
     }
@@ -184,7 +185,15 @@
             }
         }
     }
+}
 
+.am-textarea-item {
+    background-color: @bg-sec;
+
+    textarea {
+        font-size: 12px;
+        color    : @fc-text;
+    }
 }
 
 .ka-wrapper {
