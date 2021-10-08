@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import FavouriteBtn from '../FavouriteBtn'
 import { Share as ShareIcon, Comment as CommentIcon } from '@material-ui/icons'
@@ -6,6 +6,7 @@ import { makeStyles } from '@/theme/useThemeStyle'
 import { TextareaItem, Toast } from 'antd-mobile'
 import { ClickAuthDiv } from '@/components/auth'
 import * as ArticleAPI from '@/services/Articles'
+import { useUnactivate } from 'react-activation'
 
 const useStyle = makeStyles((theme) => ({
     icon1: {
@@ -45,7 +46,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-export default function UnderBar({ data }: any) {
+export default function UnderBar({ data, updateComments, commentCount }: any) {
     const [write, setWrite] = useState(false)
     const styles = useStyle()
     return <div className='f-r a-center article-underbar'>
@@ -55,7 +56,7 @@ export default function UnderBar({ data }: any) {
             {/* 评论 锚点 */}
             <div className='f-r'>
                 <CommentIcon style={styles.icon1} />
-                0
+                {commentCount}
             </div>
             {/* 点赞 */}
             <FavouriteBtn {...data} />
@@ -64,7 +65,7 @@ export default function UnderBar({ data }: any) {
                 <ShareIcon style={styles.icon1} onClick={shareClick} />
             </div>
             {
-                write ? <CommentInput onMaskClose={() => setWrite(false)} {...data} /> : null
+                write ? <CommentInput updateComments={updateComments} onMaskClose={() => setWrite(false)} {...data} /> : null
             }
         </div>
     </div>
@@ -77,11 +78,16 @@ function shareClick() {
 // 评论样式
 function CommentInput({
     onMaskClose,
-    slug
+    slug,
+    updateComments
 }: any) {
-    console.log(slug, 'edd')
     const styles = useStyle()
     const [value, setValue] = useState<any>('')
+
+    useUnactivate(() => {
+        onMaskClose()
+    })
+
     async function publishComment() {
         if (!value) {
             return
@@ -91,6 +97,7 @@ function CommentInput({
 
         if (rc > 0) {
             Toast.success('发表成功')
+            updateComments()
             onMaskClose()
         } else {
             Toast.fail('发表失败')

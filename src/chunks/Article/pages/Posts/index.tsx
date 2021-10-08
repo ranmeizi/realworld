@@ -36,8 +36,13 @@ export default function Posts(props: any) {
     const history = useHistory()
 
     const [postData, setPostData] = useState<Partial<ArticleAPI.Article>>({})
+    const [comments, setComments] = useState<ArticleAPI.Comment[]>([])
+
+    const commentCount = useMemo(() => comments.length, [comments])
+
     useEffect(() => {
         getData()
+        getComments()
     }, [])
 
     const showPost = useMemo(() => {
@@ -48,6 +53,12 @@ export default function Posts(props: any) {
         const slug = props?.match?.params?.slug
         slug && setPostData(await ArticleAPI.getArticleDetail({ slug }))
     }, [])
+
+    const getComments = useCallback(async () => {
+        const slug = props?.match?.params?.slug
+        slug && setComments(await ArticleAPI.getComments({ slug }))
+    }, [])
+
     return <div className='rvt-headerview article-detail' style={styles.root}>
         {/* 导航 */}
         <NavBar />
@@ -82,9 +93,9 @@ export default function Posts(props: any) {
                     </div>
                     {/* 评论 */}
                     <div>
-                        <Commonts slug={props?.match?.params?.slug} />
+                        <Commonts comments={comments} slug={props?.match?.params?.slug} updateComments={getComments}/>
                     </div>
-                    <UnderBar data={postData} />
+                    <UnderBar data={postData} commentCount={commentCount} updateComments={getComments} />
                 </div>
                 : null
         }

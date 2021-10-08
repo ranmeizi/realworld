@@ -137,6 +137,18 @@ export async function publishComment({ slug, body }: PublishCommentParams) {
     }
 }
 
+export async function delComment({ slug, id }: any) {
+    try {
+        const res = await RW.delete(`/articles/${slug}/comments/${id}`)
+        if (res.status < 200 || res.status > 300) {
+            throw new Error('失败')
+        }
+        return 1
+    } catch (e) {
+        return -1
+    }
+}
+
 // 获取标签
 export async function getTags(): Promise<string[]> {
     try {
