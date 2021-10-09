@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef, DOMElement } from 'react'
 import * as ArticleAPI from '@/services/Articles'
 import NavBar from '@/layouts/NavBar'
 import { makeStyles } from '@/theme/useThemeStyle'
@@ -38,6 +38,11 @@ export default function Posts(props: any) {
     const [postData, setPostData] = useState<Partial<ArticleAPI.Article>>({})
     const [comments, setComments] = useState<ArticleAPI.Comment[]>([])
 
+    // 滚动容器
+    const containerRef = useRef<HTMLDivElement>(null)
+    // 滚动位置
+    const commentRef = useRef<HTMLDivElement>(null)
+
     const commentCount = useMemo(() => comments.length, [comments])
 
     useEffect(() => {
@@ -57,9 +62,20 @@ export default function Posts(props: any) {
     const getComments = useCallback(async () => {
         const slug = props?.match?.params?.slug
         slug && setComments(await ArticleAPI.getComments({ slug }))
+
+        if (localStorage.getItem('gotoComment')) {
+            // 滚动到comment
+            scrollToComment()
+        }
     }, [])
 
-    return <div className='rvt-headerview article-detail' style={styles.root}>
+    function scrollToComment() {
+        containerRef.current && containerRef.current.scrollTo({
+            top: commentRef.current ? commentRef.current.getBoundingClientRect().top : 0
+        })
+    }
+
+    return <div className='rvt-headerview article-detail' style={styles.root} ref={containerRef}>
         {/* 导航 */}
         <NavBar />
         {
@@ -92,8 +108,8 @@ export default function Posts(props: any) {
                         {postData.body}
                     </div>
                     {/* 评论 */}
-                    <div>
-                        <Commonts comments={comments} slug={props?.match?.params?.slug} updateComments={getComments}/>
+                    <div ref={commentRef}>
+                        <Commonts comments={comments} slug={props?.match?.params?.slug} updateComments={getComments} />
                     </div>
                     <UnderBar data={postData} commentCount={commentCount} updateComments={getComments} />
                 </div>

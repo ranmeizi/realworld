@@ -7,11 +7,13 @@ type Props = {
     title?: string
 }
 
-export default function RtvNavBar({ title }: Props | NavBarProps) {
+export default function RtvNavBar({ title, leftContent, rightContent }: Props & NavBarProps) {
     const history = useHistory()
     return <NavBar
         mode="light"
         icon={<Icon type="left" />}
+        leftContent={leftContent}
+        rightContent={rightContent}
         onLeftClick={() => history.goBack()}
     >{title}</NavBar>
 }

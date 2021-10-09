@@ -73,7 +73,6 @@ export default class PullList extends Component<PullListProps & Partial<ListView
     getData = async (pageNum = this.state.pagination.pageNum + 1, pageSize = this.state.pagination.pageSize) => {
         const { getDataMethod } = this.props
         const { list, total } = await getDataMethod({ pageNum, pageSize })
-        console.log(list, 'hahaha')
         // pageNum===1 重新创建DataSource
         if (pageNum === 0) {
             this.rData = [...list]

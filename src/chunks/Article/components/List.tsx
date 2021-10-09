@@ -60,6 +60,7 @@ export default function ArticleList({ query, offset }: Props) {
         if (!data.slug) {
             return Toast.info('没有slug')
         }
+        localStorage.removeItem('gotoComment')
         history.push(`/posts/${data.slug}`)
     }, [])
 
@@ -67,7 +68,7 @@ export default function ArticleList({ query, offset }: Props) {
         return <div className='article-row-item' style={styles.root} onClick={() => onRowClick(data)}>
             {/* 头部 */}
             <div className='f-r j-between a-center'>
-                <div className='f-r a-center' onClick={(e)=>{
+                <div className='f-r a-center' onClick={(e) => {
                     e.stopPropagation()
                     history.push(`/profile/${data?.author?.username}`)
                 }}>
@@ -91,7 +92,11 @@ export default function ArticleList({ query, offset }: Props) {
             </div>
             {/* 评论/点赞 */}
             <div className='f-r j-end' style={styles.actionBar}>
-                <div className='f-r j-center a-center' onClick={e => e.stopPropagation()}><CommentIcon style={styles.icon1} /></div>
+                <div className='f-r j-center a-center' onClick={e => {
+                    e.stopPropagation()
+                    onRowClick(data)
+                    localStorage.setItem('gotoComment', '1')
+                }}><CommentIcon style={styles.icon1} /></div>
                 <FavouriteBtn {...data} />
             </div>
         </div>

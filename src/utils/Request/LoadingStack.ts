@@ -15,7 +15,6 @@ const reqStack: boolean[] = []
 // 来不及解释了
 function whenRequest(config: any) {
     if (config?.loading) {
-        console.log(reqStack)
         if (reqStack.length === 0) {
             open()
         }
@@ -27,7 +26,6 @@ function whenResponse(config: any) {
     if (config?.loading) {
 
         reqStack.pop()
-        console.log(reqStack)
         if (reqStack.length === 0) {
             close()
         }

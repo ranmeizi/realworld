@@ -24,7 +24,6 @@ let container: Element | null = null
 let isOpen = false
 
 export function open() {
-    console.log('open', isOpen)
     if (isOpen) {
         return
     }

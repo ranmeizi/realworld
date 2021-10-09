@@ -41,6 +41,12 @@ const routes: MyRoute[] = [
                 ]
             },
             {
+                path: ['/edit', '/edit/:slug'],
+                isCache: true,
+                isTransition: true,
+                component: lazy(() => ArticleModule.get('Edit'))
+            },
+            {
                 path: '/posts/:slug',
                 isCache: true,
                 isTransition: true,
@@ -52,26 +58,31 @@ const routes: MyRoute[] = [
             },
             {
                 path: '/realworld-login',
+                isCache: true,
                 isTransition: true,
                 component: lazy(() => UserModule.get('RealWorldLogin'))
             },
             {
                 path: '/register',
+                isCache: true,
                 isTransition: true,
                 component: lazy(() => UserModule.get('Register'))
             },
             {
                 path: '/login',
+                isCache: true,
                 isTransition: true,
                 component: lazy(() => UserModule.get('Login'))
             },
             {
                 path: '/profile/:username',
+                isCache: true,
                 isTransition: true,
                 component: lazy(() => ArticleModule.get('Profile'))
             },
             {
                 path: '/myArticles/:type',
+                isCache: true,
                 isTransition: true,
                 component: lazy(() => ArticleModule.get('MyArticles'))
             }

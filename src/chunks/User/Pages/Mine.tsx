@@ -92,12 +92,18 @@ function Mine({
         history.push(`/myArticles/${type}`)
     }
 
+    function navtoEdit() {
+        history.push(`/edit`)
+    }
+
     return <div className='f-c'>
         {/* 我的页面特殊header */}
         <div style={styles.headerBg}></div>
         <div className='f-r j-between a-center' style={styles.header}>
             <GitHubIcon style={styles.headerIcon} onClick={openGitee} />
-            <EditIcon style={styles.headerIcon} />
+            <ClickAuthDiv>
+                <EditIcon style={styles.headerIcon} onClick={navtoEdit} />
+            </ClickAuthDiv>
         </div>
         {/* 个人页卡片 */}
         <div className='mine-card ' style={styles.card}>

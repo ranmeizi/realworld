@@ -5,6 +5,7 @@ import { renderRoutes } from './routes/renderRoutes'
 import vhCheck from 'vh-check'
 import { store } from '@/redux/store'
 import { themeChange } from '@/theme/useThemeStyle'
+import config from '@/config'
 
 vhCheck()
 
@@ -27,7 +28,7 @@ function App() {
   }, [])
 
   return <div className='rvt-app' style={style.app}>
-    <Router>
+    <Router basename={config.routeBasename}>
       {
         renderRoutes(routes)
       }

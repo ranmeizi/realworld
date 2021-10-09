@@ -2,7 +2,8 @@
 
 interface Window {
     devToolsExtension: any,
-    CONSTANTS: any
+    CONSTANTS: any,
+    rvtConfig: any
 }
 
 // 定义全局的类型和一些常用范型

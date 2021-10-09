@@ -70,7 +70,8 @@
         }
     }
 
-    input {
+    input,
+    textarea {
         color      : @fc-text  !important;
         caret-color: @fc-active;
 
@@ -145,6 +146,55 @@
     }
 }
 
+.tag {
+    display     : inline-block;
+    margin-right: 8px;
+    height      : 24px;
+    line-height : 24px;
+    color       : @fc-active;
+    padding     : 0 8px;
+    position    : relative;
+
+    &::before {
+        position        : absolute;
+        height          : 100%;
+        width           : 100%;
+        content         : '';
+        left            : 0;
+        top             : 0;
+        background-color: @fc-active;
+        border-radius   : 12px;
+        opacity         : 0.3;
+    }
+
+    &::after {
+        position     : absolute;
+        border-radius: 12px;
+        box-sizing   : border-box;
+        height       : 100%;
+        width        : 100%;
+        content      : '';
+        left         : 0;
+        top          : 0;
+        border       : 1px solid @fc-active;
+        opacity      : 0.7;
+    }
+}
+
+.fcList {
+
+    .am-list-body {
+        height        : 100%;
+        display       : flex;
+        flex-direction: column;
+    }
+
+    .f1 {
+        flex: 1
+    }
+
+}
+
 .am-modal-content {
     background-color: @bg-pri;
 
@@ -189,6 +239,10 @@
 
 .am-textarea-item {
     background-color: @bg-sec;
+
+    &::after {
+        background-color: transparent !important;
+    }
 
     textarea {
         font-size: 12px;

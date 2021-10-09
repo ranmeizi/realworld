@@ -68,6 +68,30 @@ export async function getArticles({
     }
 }
 
+export async function createArticle({
+    title,
+    body,
+    tagList,
+    description
+}: Partial<Article>): Promise<string> {
+    try {
+        const res = await RW.post(`/articles`, {
+            article: {
+                title,
+                body,
+                tagList,
+                description
+            }
+        })
+        if (res.status !== 200) {
+            throw new Error('失败')
+        }
+        return res.data.article.slug
+    } catch (e) {
+        return ''
+    }
+}
+
 export interface GetArticleDetailParam {
     slug: string // Slug of the article to get
 }

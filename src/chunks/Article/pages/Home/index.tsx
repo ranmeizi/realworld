@@ -3,6 +3,9 @@ import ArticleList from '../../components/List'
 import { Tabs } from 'antd-mobile'
 import * as ArticleAPI from '@/services/Articles'
 import { makeStyles } from '@/theme/useThemeStyle'
+import { Clear as ClearIcon } from '@material-ui/icons';
+import { useHistory } from 'react-router'
+import { ClickAuthDiv } from '@/components/auth'
 
 const useStyle = makeStyles((theme) => ({
     tabBarTextStyle: {
@@ -15,12 +18,26 @@ const useStyle = makeStyles((theme) => ({
         display: 'block',
         textAlign: 'center',
         fontSize: '14px'
+    },
+    writeBtn: {
+        position: 'fixed',
+        bottom: '64px',
+        right: '8px',
+        height: '48px',
+        width: '48px',
+        fontSize: '24px',
+        borderRadius: '24px',
+        color: '#fff',
+        backgroundImage: ' linear-gradient(0deg, rgb(255,91,91),rgb(255,131,101))',
+        transform: 'rotateZ(-45deg)'
     }
 }))
 
 function Home() {
+    const styles = useStyle()
     const [tags, setTags] = useState<string[]>([])
     const [query, setQuery] = useState<ArticleAPI.GetArticlesParam>({})
+    const history = useHistory()
     useEffect(() => {
         async function getData() {
             setTags(await ArticleAPI.getTags())
@@ -42,6 +59,10 @@ function Home() {
         <div style={{ paddingTop: '36px', boxSizing: 'border-box' }}>
             <ArticleList query={query} offset />
         </div>
+        {/* 写文章按钮 */}
+        <ClickAuthDiv className='f-r j-center a-center' style={styles.writeBtn} onClick={() => history.push('/edit')}>
+            <ClearIcon />
+        </ClickAuthDiv>
     </div>
 }
 
