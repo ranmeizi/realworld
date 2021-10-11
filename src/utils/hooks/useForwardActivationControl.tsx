@@ -9,11 +9,11 @@ export default function useForwardActivationControl({
 }: any) {
     const history = useHistory()
     const location = useLocation()
-    const { dropScope } = useAliveController()
+    const { refresh } = useAliveController()
 
     useEffect(() => {
         if (history.action === 'PUSH' && match.url === name) {
-            dropScope(name)
+            refresh(name)
             console.log('我应该ger屁了')
         }
     }, [location.pathname])
