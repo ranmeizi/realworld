@@ -22,7 +22,7 @@ const postcssOpts = {
 
 export default {
     postcss: postcssOpts,
-    base: './',
+    base: '/',
     css: {
         preprocessorOptions: {
             less: {

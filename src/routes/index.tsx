@@ -85,7 +85,13 @@ const routes: MyRoute[] = [
                 isCache: true,
                 isTransition: true,
                 component: lazy(() => ArticleModule.get('MyArticles'))
-            }
+            },
+            {
+                path: '/account/:username',
+                isCache: true,
+                isTransition: true,
+                component: lazy(() => UserModule.get('Account'))
+            },
         ],
     }
 ]

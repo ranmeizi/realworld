@@ -82,6 +82,8 @@ export async function createArticle({
                 tagList,
                 description
             }
+        }, {
+            loading: true
         })
         if (res.status !== 200) {
             throw new Error('失败')
@@ -151,6 +153,8 @@ export async function publishComment({ slug, body }: PublishCommentParams) {
     try {
         const res = await RW.post(`/articles/${slug}/comments`, {
             comment: { body }
+        }, {
+            loading: true
         })
         if (res.status !== 200) {
             throw new Error('失败')
@@ -163,7 +167,9 @@ export async function publishComment({ slug, body }: PublishCommentParams) {
 
 export async function delComment({ slug, id }: any) {
     try {
-        const res = await RW.delete(`/articles/${slug}/comments/${id}`)
+        const res = await RW.delete(`/articles/${slug}/comments/${id}`, {
+            loading: true
+        })
         if (res.status < 200 || res.status > 300) {
             throw new Error('失败')
         }
@@ -203,7 +209,9 @@ export async function getProfile({ username }: any): Promise<Profile | Record<st
 // 关注
 export async function follow({ username }: any) {
     try {
-        const res = await RW.post(`/profiles/${username}/follow`)
+        const res = await RW.post(`/profiles/${username}/follow`, {}, {
+            loading: true
+        })
         return res.data.profile
     } catch (e) {
         return {}
@@ -213,7 +221,9 @@ export async function follow({ username }: any) {
 // 取消关注
 export async function unfollow({ username }: any) {
     try {
-        const res = await RW.delete(`/profiles/${username}/follow`)
+        const res = await RW.delete(`/profiles/${username}/follow`, {
+            loading: true
+        })
         return res.data.profile
     } catch (e) {
         return {}

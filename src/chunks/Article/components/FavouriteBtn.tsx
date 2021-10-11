@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { ThumbUpAlt as ThumbUpAltIcon } from '@material-ui/icons'
 import { Toast } from 'antd-mobile'
 import * as ArticleAPI from '@/services/Articles'
@@ -23,6 +23,14 @@ export default function Favourite({ favoritesCount = 0, favorited = false, slug 
     const [count, setCount] = useState(favoritesCount)
     const [isFav, setIsFav] = useState(favorited)
 
+    useEffect(() => {
+        setCount(favoritesCount)
+    }, [favoritesCount])
+
+    useEffect(() => {
+        setIsFav(favorited)
+    }, [favorited])
+
     const onClick = useCallback(async (e) => {
         e.stopPropagation()
         if (isFav) {
@@ -46,6 +54,6 @@ export default function Favourite({ favoritesCount = 0, favorited = false, slug 
         onClick={onClick}
         style={isFav ? styles.favouriteStyle : styles.unFavouriteStyle}
     >
-        <ThumbUpAltIcon style={{ fontSize: '14px', marginRight: '4px' }} /> {favoritesCount}
+        <ThumbUpAltIcon style={{ fontSize: '14px', marginRight: '4px' }} /> {count}
     </ClickAuthDiv>
 }

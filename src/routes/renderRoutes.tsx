@@ -66,7 +66,7 @@ function ForwardAliveComponent(props: any) {
         return url
     }, [])
     useForwardActivationControl({ name, match: props.match })
-    return <KeepAlive id={name} >{props.children}</KeepAlive>
+    return <KeepAlive id={name} name={name} >{props.children}</KeepAlive>
 }
 
 

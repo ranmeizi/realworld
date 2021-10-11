@@ -8,6 +8,8 @@ import maoboliImg from '@/assets/images/maoboli.jpeg'
 import { useHistory } from 'react-router'
 import ErrImg from '@/components/error-image'
 import { UserArticle } from '../MyArticles'
+import FollowBtn from '@/chunks/Article/components/FollowBtn'
+import { connect } from 'react-redux';
 
 const useStyle = makeStyles(theme => ({
     header: {
@@ -46,7 +48,8 @@ const useStyle = makeStyles(theme => ({
         lineHeight: '24px',
         padding: '0 8px',
         borderRadius: '12px',
-        border: `1px solid #56ba68`
+        border: `1px solid #56ba68`,
+        transition: '0.3s'
     },
     username: {
         fontSize: '18px',
@@ -59,7 +62,7 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 
-export default function (props: any) {
+function Profile(props: any) {
     const styles = useStyle()
     const history = useHistory()
     const [profile, setProfile] = useState<ArticleAPI.Profile | Record<string, undefined>>({})
@@ -85,7 +88,11 @@ export default function (props: any) {
             <ErrImg className='user-img lg' style={styles.avatar} src={profile.image} />
             {/* 关注/修改资料 */}
             <div className='f-r j-end'>
-                <div style={styles.editBtn}>编辑资料</div>
+                {
+                    profile.username === props.uinfo.username
+                        ? <div style={styles.editBtn} onClick={() => history.push(`/account/${props.uinfo.username}`)}>编辑资料</div>
+                        : <FollowBtn following={profile.following} username={profile.username} />
+                }
             </div>
             {/* 名/简介 */}
             <div>
@@ -94,6 +101,12 @@ export default function (props: any) {
             </div>
         </div>
         {/* 文章 */}
-        <UserArticle username={props.match.params.username}/>
+        <UserArticle username={props.match.params.username} />
     </div>
 }
+
+const mapStateToProps = (state: any) => ({
+    uinfo: state.app.uinfo
+})
+
+export default connect(mapStateToProps)(Profile)

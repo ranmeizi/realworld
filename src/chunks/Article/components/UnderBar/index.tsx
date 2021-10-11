@@ -36,10 +36,11 @@ const useStyle = makeStyles((theme) => ({
         backgroundColor: 'rgba(0,0,0,0.15)'
     },
     commentBar: {
-        position: 'absolute',
+        position: 'fixed',
         boxSizing: 'border-box',
         bottom: 0,
         left: 0,
+        zIndex: 3001,
         width: '100vw',
         padding: '8px 12px',
         backgroundColor: theme.bg.pri

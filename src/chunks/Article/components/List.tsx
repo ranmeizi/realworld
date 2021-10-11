@@ -79,8 +79,8 @@ export default function ArticleList({ query, offset }: Props) {
                         <div className='secd'>{data.updateAt || '1小时前'}</div>
                     </div>
                 </div>
-                {/* 关注按钮 */}
-                <div style={styles.guanzhu}>关注</div>
+                {/* 关注按钮 不要了 */}
+                {/* <div style={styles.guanzhu}>关注</div> */}
             </div>
             {/* 标题 */}
             <div className='title'>

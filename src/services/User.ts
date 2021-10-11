@@ -91,7 +91,7 @@ export async function updateCurUser({
     bio,
     image,
     token
-}: Partial<User>): Promise<User | {}> {
+}: Partial<User>): Promise<number> {
     try {
         const res = await RW.put('/user', {
             user: {
@@ -102,8 +102,18 @@ export async function updateCurUser({
                 token
             }
         })
-        return res.data.user
-    } catch (e) {
-        return {}
+        if (res.data.user) {
+            // 登陆成功 存放user到redux
+            store.dispatch(appAction.setUinfo(res.data.user))
+        }
+        return 1
+    } catch (e:any) {
+        if (e.response.data.errors) {
+            const errmsg = Object.entries(e.response.data.errors).reduce((msgList: string[], [key, value]) => {
+                return [...msgList, `${key}:${(value as string[]).join('')}`]
+            }, []).join('\n')
+            Toast.fail(errmsg)
+        }
+        return -1
     }
 }
