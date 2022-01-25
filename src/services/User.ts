@@ -75,7 +75,7 @@ export async function register({
 }
 
 // 获取当前用户
-export async function getCurUser(): Promise<User | {}> {
+export async function getCurUser(): Promise<User | Record<string, never>> {
     try {
         const res = await RW.get('/user')
         return res.data.user

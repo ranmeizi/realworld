@@ -161,7 +161,7 @@ function TagInput({
         {/* taglist */}
         <List.Item>
             <div style={styles.tagList}>
-                {value.map((item: string, index: number) => <div onClick={() => del(index)} className='tag'>{item}</div>)}
+                {value.map((item: string, index: number) => <div key={index} onClick={() => del(index)} className='tag'>{item}</div>)}
             </div>
         </List.Item>
     </div>

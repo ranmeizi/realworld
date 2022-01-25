@@ -1,7 +1,7 @@
-import React, { Suspense, useMemo, useEffect } from 'react'
-import { RouteProps, Switch, Route, withRouter, matchPath, useHistory } from 'react-router-dom'
+import React, { Suspense, useMemo } from 'react'
+import { RouteProps, Switch, Route, withRouter, matchPath } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { KeepAlive, useAliveController } from 'react-activation'
+import { KeepAlive } from 'react-activation'
 import Loading from '@/components/loading'
 import useForwardActivationControl from '@/utils/hooks/useForwardActivationControl'
 

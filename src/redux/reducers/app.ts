@@ -1,47 +1,58 @@
-import { AnyAction } from 'redux'
-import * as TYPES from '../ACTION_TYPES'
+import { AnyAction } from "redux";
+import * as TYPES from "../ACTION_TYPES";
 
 type UInfo = {
-    email: string,
-    token: string,
-    username: string,
-    bio: string,
-    image: string
-}
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string;
+};
 
-type ThemeState = {
-    theme: 'light' | 'dark',
-    appTab: string,
-    hideTabbar: boolean,
-    hideHeader: boolean,
-    uinfo: Partial<UInfo>
-}
+type AppState = {
+  theme: "light" | "dark";
+  appTab: string;
+  hideTabbar: boolean;
+  hideHeader: boolean;
+  uinfo: Partial<UInfo>;
+  permission: string[];
+};
 
-const initialState: ThemeState = {
-    theme: 'dark',
-    appTab: '',
-    hideTabbar: false,
-    hideHeader: false,
-    uinfo: {}
-}
+const initialState: AppState = {
+  theme: "dark",
+  appTab: "",
+  hideTabbar: false,
+  hideHeader: false,
+  uinfo: {},
+  permission: [],
+};
 
-export default function reducer(state: ThemeState = initialState, action: AnyAction) {
-    switch (action.type) {
-        case TYPES.SET_THEME:
-            return {
-                ...state,
-                theme: action.data
-            }
-        case TYPES.SET_UINFO:
-            return {
-                ...state,
-                uinfo: action.data
-            }
-        case TYPES.CLEAR_UINFO:
-            return {
-                ...state,
-                uinfo: {}
-            }
-        default: return state
-    }
+export default function reducer(
+  state: AppState = initialState,
+  action: AnyAction
+) {
+  switch (action.type) {
+    case TYPES.SET_THEME:
+      return {
+        ...state,
+        theme: action.data,
+      };
+    case TYPES.SET_UINFO:
+      return {
+        ...state,
+        uinfo: action.data,
+      };
+    case TYPES.CLEAR_UINFO:
+      return {
+        ...state,
+        uinfo: {},
+      };
+    case TYPES.SET_PERMISSION:
+      return {
+        ...state,
+        permission: action.data,
+      };
+    default:
+      return state;
+  }
 }

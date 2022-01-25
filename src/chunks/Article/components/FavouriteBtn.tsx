@@ -16,7 +16,13 @@ const useStyle = makeStyles((theme: Theme) => ({
     }
 }))
 
-export default function Favourite({ favoritesCount = 0, favorited = false, slug = '' }) {
+type FavouriteProps = {
+    favoritesCount: number,
+    favorited: boolean,
+    slug: string
+}
+
+export default function Favourite({ favoritesCount = 0, favorited = false, slug = '' }: FavouriteProps) {
 
     const styles = useStyle()
 

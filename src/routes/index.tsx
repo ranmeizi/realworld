@@ -5,7 +5,17 @@ import { MyRoute } from '@/routes/renderRoutes'
 import Article from '../chunks/Article'
 import User from '@/chunks/User'
 import TabView from '@/components/home-tab-view'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
+import { withPermissionArea, withPermissionRouter } from '@/components/permission'
+import { setPermission } from '@/redux/actions/app'
+import { store } from '@/redux/store'
+
+const Button = ({ children, ...props }: any) => <button {...props}>{children}</button>
+
+const P11Btn = withPermissionArea({
+    permission: '1',
+    tips: '我没有权限'
+})(Button)
 
 const ArticleModule = new Article()
 const UserModule = new User()
@@ -57,6 +67,12 @@ const routes: MyRoute[] = [
                 component: Test
             },
             {
+                path: '/test1',
+                component: withPermissionRouter({
+                    permission: '2'
+                })(Test1)
+            },
+            {
                 path: '/realworld-login',
                 isCache: true,
                 isTransition: true,
@@ -98,12 +114,20 @@ const routes: MyRoute[] = [
 
 export default routes
 
-
 function Test() {
+    const history = useHistory()
     return <div>
-        <Link to='/f/home'>Article</Link>
-        /
-        <Link to='/f/user'>User</Link>
+        <P11Btn onClick={() => {
+            alert('要跳转了啊')
+            history.push('/test1')
+        }}>点我跳转啊笨蛋</P11Btn>
+        <button onClick={() => store.dispatch(setPermission(['1']))}>setPromission1</button>
+        <button onClick={() => store.dispatch(setPermission(['2']))}>setPromission2</button>
+    </div>
+}
 
+function Test1() {
+    return <div>
+        有很多很多好内容。。
     </div>
 }

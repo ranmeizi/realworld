@@ -23,6 +23,8 @@ module.exports = {
     ],
     "rules": {
         "react/display-name": 0,
-        "@typescript-eslint/no-inferrable-types": 0
+        "@typescript-eslint/no-inferrable-types": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-explicit-any": 0
     }
 };

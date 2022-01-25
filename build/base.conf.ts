@@ -31,10 +31,7 @@ export default {
         }
     },
     define: {
-        'process.env': {
-            'NETWORK_ENV': JSON.stringify(process.env.NETWORK_ENV),
-            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        }
+        'process.env.NETWORK_ENV': JSON.stringify(process.env.NETWORK_ENV)
     },
     plugins: [
         usePluginImport({
