@@ -26,7 +26,7 @@ export async function login({
             // 登陆成功 存放user到redux
             store.dispatch(appAction.setUinfo(res.data.user))
             // 清空history push到首页
-            history.go(history.length)
+            history.go(-history.length)
             window.location.replace("/f/home")
         }
         return 1
